@@ -83,6 +83,20 @@ class Gameboard {
 
     }
 
+    shipsRemaining() {
+
+        let shipsRemaining = 0;
+
+        this.ships.forEach(ship => {
+            
+            if (!ship.sunk) shipsRemaining++
+
+        });
+    
+        if (shipsRemaining == 0) alert('All ships down!')
+
+    }
+
 };
 
 myGameBoard = new Gameboard();
@@ -94,10 +108,12 @@ myGameBoard.placeShip(2, 6, 4, 'ver');
 
 console.log(myGameBoard.board);
 
+myGameBoard.receiveAttack(3, 3);
 myGameBoard.receiveAttack(3, 4);
+myGameBoard.receiveAttack(3, 5);
 
 console.log(myGameBoard.ships);
 
-
+console.log(myGameBoard.shipsRemaining());
 
 module.exports = Gameboard;
