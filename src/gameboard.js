@@ -103,19 +103,4 @@ class Gameboard {
 
 myGameBoard = new Gameboard();
 
-myGameBoard.placeShip(3, 3, 3, 'ver');
-myGameBoard.placeShip(5, 5, 2, 'hor');
-
-myGameBoard.placeShip(2, 6, 4, 'ver');
-
-console.log(myGameBoard.board);
-
-myGameBoard.receiveAttack(3, 3);
-myGameBoard.receiveAttack(3, 4);
-myGameBoard.receiveAttack(3, 5);
-
-console.log(myGameBoard.ships);
-
-console.log(myGameBoard.shipsRemaining());
-
 module.exports = Gameboard;
