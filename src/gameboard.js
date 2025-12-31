@@ -93,7 +93,9 @@ class Gameboard {
 
         });
     
-        if (shipsRemaining == 0) alert('All ships down!')
+        if (shipsRemaining == 0) return 'All ships down!';
+
+        return shipsRemaining;
 
     }
 
