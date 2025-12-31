@@ -1,15 +1,23 @@
 const Ship = require("./ship");
 
-let emptyBoard = [];
-let boardRow = []
+function createBoard() {
 
-for (let x = 0; x <= 9; x++) {
-    boardRow.push('O');
-};
+    let emptyBoard = [];
+    let boardRow = []
 
-for (let y = 0; y <= 9; y++) {
-    emptyBoard.push(boardRow.slice());
-};
+    for (let x = 0; x <= 9; x++) {
+        boardRow.push('O');
+    };
+
+    for (let y = 0; y <= 9; y++) {
+        emptyBoard.push(boardRow.slice());
+    };
+
+    return emptyBoard;
+
+}
+
+
 
 // console.log(emptyBoard);
 
@@ -17,7 +25,7 @@ for (let y = 0; y <= 9; y++) {
 class Gameboard {
 
     constructor() {
-        this.board = JSON.parse(JSON.stringify(emptyBoard));
+        this.board = JSON.parse(JSON.stringify(createBoard()));
         this.ships = [];
     }
 
@@ -26,12 +34,16 @@ class Gameboard {
         let newShip = new Ship(this.ships.length, length);
 
         this.ships.push(newShip);
+
+        console.log(x+''+y);
         
         if (orientation == 'hor') {
 
             if ((x+length) > 10) throw Error ('Invalid placement');
 
             for (let i = 0; i < length; i++) {
+
+                console.log(x+''+y);
                 
                 this.board[y][x+i] = 'S'
                 newShip.coords.push(`${x+i}, ${y}`);
@@ -45,6 +57,8 @@ class Gameboard {
             if ((y+length) > 10) throw Error ('Invalid placement');
 
             for (let i = 0; i < length; i++) {
+
+                console.log(x+''+y);
                 
                 this.board[y+i][x] = 'S'
                 newShip.coords.push(`${x}, ${y+i}`);
@@ -101,6 +115,16 @@ class Gameboard {
 
 };
 
-myGameBoard = new Gameboard();
+// myGameBoard = new Gameboard();
 
-module.exports = Gameboard;
+// console.log(myGameBoard);
+
+
+// myGameBoard.placeShip(3, 3, 3, 'ver');
+// myGameBoard.placeShip(5, 5, 2, 'hor');
+
+// myGameBoard.placeShip(2, 6, 4, 'ver');
+
+// console.log(myGameBoard.board);
+
+module.exports = {Gameboard, createBoard};
