@@ -35,7 +35,7 @@ class Gameboard {
 
         this.ships.push(newShip);
 
-        console.log(x+''+y);
+        // console.log(x+''+y);
         
         if (orientation == 'hor') {
 
@@ -43,7 +43,7 @@ class Gameboard {
 
             for (let i = 0; i < length; i++) {
 
-                console.log(x+''+y);
+                // console.log(x+''+y);
                 
                 this.board[y][x+i] = 'S'
                 newShip.coords.push(`${x+i}, ${y}`);
@@ -58,7 +58,7 @@ class Gameboard {
 
             for (let i = 0; i < length; i++) {
 
-                console.log(x+''+y);
+                // console.log(x+''+y);
                 
                 this.board[y+i][x] = 'S'
                 newShip.coords.push(`${x}, ${y+i}`);

@@ -6,25 +6,28 @@ class Player {
         this.name = name;
         this.playerNum = playerNum;
         this.playerBoard = new Gameboard;
-        // this.playerBoard.board = JSON.parse(JSON.stringify(createBoard()));
     }
 
 }
 
 const player = new Player();
 
-console.log(player);
-console.log(player.playerBoard);
-player.playerBoard.placeShip(3, 3, 3, 'ver');
-console.log(player.playerBoard.board[3][3]);
-console.log(player.playerBoard.board);
-// console.log(player.playerBoard.shipsRemaining());
+class Computer extends Player {
 
-// const myBoard = new Gameboard;
+    constructor(name = 'Computer1', computerNum = 1) {
+        super(name)
+        this.computerNum = computerNum;
+        this.computerBoard = new Gameboard;
+    }
 
-// myBoard.placeShip(3, 3, 3);
-// console.log(myBoard.board);
+}
+
+const pc = new Computer();
+
+console.log(pc);
+pc.computerBoard.placeShip(4, 4, 4, 'hor');
+pc.computerBoard.receiveAttack(6, 4);
+console.log(pc.computerBoard.board);
 
 
-
-module.exports = Player;
+module.exports = {Player, Computer};
