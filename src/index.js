@@ -31,6 +31,12 @@ function drawBoard(player, map) {
         
       let div = document.createElement('div');
       div.textContent = player.gameBoard.board[i][j];
+      div.onclick = () => {
+        player.gameBoard.receiveAttack([j],[i])
+        console.log(j+', '+i);
+        
+        refreshBoard();
+      };
       map.appendChild(div);
 
     }
