@@ -2,9 +2,9 @@ let {Gameboard, createBoard} = require('./gameboard');
 
 class Player {
 
-    constructor(name = 'Player1', playerNum = 1) {
+    constructor(name = 'Player1', num = 1) {
         this.name = name;
-        this.playerNum = playerNum;
+        this.num = num;
         this.playerBoard = new Gameboard;
     }
 
@@ -14,9 +14,9 @@ const player = new Player();
 
 class Computer extends Player {
 
-    constructor(name = 'Computer1', computerNum = 1) {
+    constructor(name = 'Computer1', num = 1) {
         super(name)
-        this.computerNum = computerNum;
+        this.num = num;
         this.computerBoard = new Gameboard;
     }
 

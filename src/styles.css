@@ -1,3 +1,37 @@
 * {
-    background-color: greenyellow;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    border: 5px solid green;
+    height: 50px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
+.playerWindow {
+    display: flex;
+    flex-direction: column;
+    border: 10px solid red;
+    height: 400px;
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+}
+
+.info  {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px;
+}
+
+.map {
+    border: 10px solid blue;
+    height: 250px;
+    width: 250px;
 }
