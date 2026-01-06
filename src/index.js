@@ -23,34 +23,24 @@ player1.gameBoard.receiveAttack(6, 7)
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
 
+function drawBoard(player, map) {
 
-for (let i = 0; i <= 9; i++) {
+    for (let i = 0; i <= 9; i++) {
 
-    for (let j = 0; j <= 9; j++) {
+        for (let j = 0; j <= 9; j++) {
+            
+            let div = document.createElement('div');
+            div.textContent = player.gameBoard.board[i][j];
+            map.appendChild(div);
 
-        console.log(i+', '+j);
-        
-        let div = document.createElement('div');
-        div.textContent = player1.gameBoard.board[i][j];
-        map1.appendChild(div);
-
-    }
-
-}
-
-for (let i = 0; i <= 9; i++) {
-
-    for (let j = 0; j <= 9; j++) {
-
-        console.log(i+', '+j);
-        
-        let div = document.createElement('div');
-        div.textContent = player2.gameBoard.board[i][j];
-        map2.appendChild(div);
+        }
 
     }
 
-}
+};
+
+drawBoard(player1, map1);
+drawBoard(player2, map2);
 
 console.log(player1.gameBoard.board);
 
