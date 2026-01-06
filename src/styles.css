@@ -50,4 +50,7 @@
     border: 10px solid blue;
     height: 300px;
     width: 300px;
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
 }
