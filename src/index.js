@@ -25,22 +25,38 @@ let map2 = document.getElementById('map2');
 
 function drawBoard(player, map) {
 
-    for (let i = 0; i <= 9; i++) {
+  for (let i = 0; i <= 9; i++) {
 
-        for (let j = 0; j <= 9; j++) {
-            
-            let div = document.createElement('div');
-            div.textContent = player.gameBoard.board[i][j];
-            map.appendChild(div);
-
-        }
+    for (let j = 0; j <= 9; j++) {
+        
+      let div = document.createElement('div');
+      div.textContent = player.gameBoard.board[i][j];
+      map.appendChild(div);
 
     }
 
+  }
+
 };
 
-drawBoard(player1, map1);
-drawBoard(player2, map2);
+function removeBoard(map) {
 
-console.log(player1.gameBoard.board);
+  while (map.lastElementChild) {
 
+    map.removeChild(map.lastElementChild);
+
+  }
+
+};
+
+function refreshBoard() {
+
+  removeBoard(map1);
+  removeBoard(map2);
+
+  drawBoard(player1, map1);
+  drawBoard(player2, map2);
+
+};
+
+refreshBoard();
