@@ -24,7 +24,14 @@ class Computer extends Player {
         let x = Math.round(Math.random() * 9);
         let y = Math.round(Math.random() * 9);
 
-        player.gameBoard.receiveAttack(x, y);
+        try {
+            player.gameBoard.receiveAttack(x, y);
+        } catch {
+            console.log('retrying');
+            
+            this.makeMove(player);
+        }
+
     }
 
 }

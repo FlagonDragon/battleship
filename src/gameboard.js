@@ -71,7 +71,7 @@ class Gameboard {
 
     receiveAttack(x, y) {
 
-        if (this.board[y][x] == 'X' && this.board[y][x] == 'M') { 
+        if (this.board[y][x] == 'X' || this.board[y][x] == 'M') { 
             throw Error('Repeated coordinate')
         }
 

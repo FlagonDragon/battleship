@@ -18,10 +18,9 @@ player2Name.textContent = player2.name;
 player1.gameBoard.placeShip(3, 3, 3, 'ver');
 player1.gameBoard.placeShip(5, 7, 4, 'hor');
 player1.gameBoard.receiveAttack(6, 7)
+player1.gameBoard.receiveAttack(0, 0)
 
 player2.gameBoard.placeShip(2, 2, 4, 'hor');
-player2.makeMove(player1);
-
 
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
@@ -132,4 +131,10 @@ function play() {
 
 }
 
+// console.log(player1.gameBoard.receiveAttack(0, 0));
+
+instruction.onclick = () => {
+  player2.makeMove(player1);
+  refreshBoard();
+}
 play();
