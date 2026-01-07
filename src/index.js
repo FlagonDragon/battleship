@@ -102,11 +102,13 @@ function play() {
     otherPlayer = currentPlayer;
     currentPlayer = newCurrentPlayer;
     
-    instruction.textContent = `Come onnn ${currentPlayer.name}, attack, attack!!!`;
+    instruction.textContent = `Your move, ${currentPlayer.name}.`;
   
     if (currentPlayer.name == 'Computer') {
 
       setTimeout(function() {
+        console.log(currentPlayer.name);
+        
         currentPlayer.makeMove(otherPlayer);
         play();
       }, 2000)
@@ -117,40 +119,9 @@ function play() {
   
 
   if (gameState == 'over') {
+
     instruction.textContent = `${currentPlayer.name} wins!!!`;
 
-    let playBtn = document.createElement('button');
-    playBtn.textContent = 'Play again?'
-    instruction.appendChild(playBtn);
-
-    playBtn.onclick = () => {
-
-      if (gameState == 'over') {
-
-        console.log('clicked!!');
-
-        player1 = new Player;
-        player2 = new Computer;
-
-        currentPlayer = player2;
-        otherPlayer = player1;
-
-        player1.gameBoard.placeShip(3, 3, 3, 'ver');
-        player1.gameBoard.placeShip(5, 7, 4, 'hor');
-        player2.gameBoard.placeShip(2, 2, 2, 'hor');
-
-        console.log(player1.gameBoard.shipsRemaining());
-        console.log(player2.gameBoard.shipsRemaining());
-        
-        gameState = 'live';
-        console.log(gameState);
-        
-        play();
-
-      }
-
-    };
-  
   }
 
   refreshBoard();
@@ -158,6 +129,27 @@ function play() {
 }
 
 // console.log(player1.gameBoard.receiveAttack(0, 0));
+
+const restart = document.getElementById('restart');
+
+restart.onclick = () => {
+
+  player1 = new Player;
+  player2 = new Computer;
+
+  currentPlayer = player2;
+  otherPlayer = player1;
+
+  player1.gameBoard.placeShip(3, 3, 3, 'ver');
+  player1.gameBoard.placeShip(5, 7, 4, 'hor');
+  player2.gameBoard.placeShip(2, 2, 2, 'hor');
+  
+  gameState = 'live';
+  console.log(gameState);
+  
+  play();
+
+};
 
 player2Name.onclick = () => {
   player2.makeMove(player1);

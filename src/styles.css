@@ -15,11 +15,16 @@
     border: 5px solid green;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    font-size: 20px;
 }
 
 #instruction {
     font-size: 28px;
+}
+
+#restart {
+    font-size: 14px;
 }
 
 .content {
