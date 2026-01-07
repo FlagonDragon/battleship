@@ -40,8 +40,8 @@ function drawBoard(player, map) {
         
         refreshBoard();
 
-        console.log(player);
-        
+        play();
+
       };
       map.appendChild(div);
 
@@ -76,8 +76,8 @@ refreshBoard();
 const instruction = document.getElementById('instruction');
 instruction.textContent = 'Commence the games.'
 
-let currentPlayer = player1;
-let otherPlayer = player2;
+let currentPlayer = player2;
+let otherPlayer = player1;
 
 const gameStates = ['setup','live','over'];
 let gameState = gameStates[1];
@@ -91,18 +91,34 @@ function play() {
   }
 
   if (gameState == 'live') {
+
+    if (otherPlayer.gameBoard.shipsRemaining() == 0) {
+      gameState = 'over';
+      return play();
+    }
+
+    let newCurrentPlayer = otherPlayer;
+    otherPlayer = currentPlayer;
+    currentPlayer = newCurrentPlayer;
     
     instruction.textContent = `Come onnn ${currentPlayer.name}, attack, attack!!!`;
   
-    if (otherPlayer.gameBoard.shipsRemaining() == 0) {
-      gameState = 'over';
-    }
+
 
   };
   
 
   if (gameState == 'over') {
     instruction.textContent = `S${currentPlayer.name} wins!!!`;
+
+    player1 = new Player;
+    player2 = new Computer;
+    gameState == 'setup';
+
+    body.onclick = () => {
+      if (gameState == 'over') play()
+    };
+  
   }
 
   refreshBoard();
@@ -110,6 +126,3 @@ function play() {
 }
 
 play();
-
-
-
