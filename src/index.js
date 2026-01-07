@@ -103,7 +103,14 @@ function play() {
     
     instruction.textContent = `Come onnn ${currentPlayer.name}, attack, attack!!!`;
   
+    if (currentPlayer.name == 'Computer') {
 
+      setTimeout(function() {
+        currentPlayer.makeMove(otherPlayer);
+        play();
+      }, 5000)
+
+    }
 
   };
   
