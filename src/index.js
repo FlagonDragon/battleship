@@ -3,8 +3,8 @@ import Ship from "./ship";
 import Gameboard from "./gameboard";
 const {Player, Computer} = require('./player');
 
-const player1 = new Player;
-const player2 = new Computer();
+let player1 = new Player;
+let player2 = new Computer;
 
 console.log('YAHOO!!!');
 
@@ -18,6 +18,9 @@ player2Name.textContent = player2.name;
 player1.gameBoard.placeShip(3, 3, 3, 'ver');
 player1.gameBoard.placeShip(5, 7, 4, 'hor');
 player1.gameBoard.receiveAttack(6, 7)
+
+player2.gameBoard.placeShip(2, 2, 4, 'hor');
+player2.makeMove(player1);
 
 
 let map1 = document.getElementById('map1');
@@ -36,6 +39,9 @@ function drawBoard(player, map) {
         console.log(j+', '+i);
         
         refreshBoard();
+
+        console.log(player);
+        
       };
       map.appendChild(div);
 
@@ -66,3 +72,44 @@ function refreshBoard() {
 };
 
 refreshBoard();
+
+const instruction = document.getElementById('instruction');
+instruction.textContent = 'Commence the games.'
+
+let currentPlayer = player1;
+let otherPlayer = player2;
+
+const gameStates = ['setup','live','over'];
+let gameState = gameStates[1];
+
+function play() {
+
+  if (gameState == 'setup') {
+    player1 = new Player;
+    player2 = new Computer;
+    instruction.textContent = 'Pls place you\'re ships right meow.';
+  }
+
+  if (gameState == 'live') {
+    
+    instruction.textContent = `Come onnn ${currentPlayer.name}, attack, attack!!!`;
+  
+    if (otherPlayer.gameBoard.shipsRemaining() == 0) {
+      gameState = 'over';
+    }
+
+  };
+  
+
+  if (gameState == 'over') {
+    instruction.textContent = `S${currentPlayer.name} wins!!!`;
+  }
+
+  refreshBoard();
+
+}
+
+play();
+
+
+

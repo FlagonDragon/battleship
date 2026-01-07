@@ -106,8 +106,6 @@ class Gameboard {
             if (!ship.sunk) shipsRemaining++
 
         });
-    
-        if (shipsRemaining == 0) return 'All ships down!';
 
         return shipsRemaining;
 

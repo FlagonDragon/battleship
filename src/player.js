@@ -20,6 +20,13 @@ class Computer extends Player {
         this.gameBoard = new Gameboard;
     }
 
+    makeMove(player) {
+        let x = Math.round(Math.random() * 9);
+        let y = Math.round(Math.random() * 9);
+
+        player.gameBoard.receiveAttack(x, y);
+    }
+
 }
 
 module.exports = {Player, Computer};
