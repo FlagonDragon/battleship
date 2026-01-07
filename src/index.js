@@ -8,19 +8,19 @@ let player2 = new Computer;
 
 console.log('YAHOO!!!');
 
-const window1 = document.getElementById("window1");
+const container = document.getElementById("container");
 const player1Name = document.getElementById("name1");
 const player2Name = document.getElementById("name2");
 
 player1Name.textContent = player1.name;
 player2Name.textContent = player2.name;
 
-player1.gameBoard.placeShip(3, 3, 3, 'ver');
-player1.gameBoard.placeShip(5, 7, 4, 'hor');
+player1.gameBoard.placeShip(3, 3, 1, 'ver');
+// player1.gameBoard.placeShip(5, 7, 4, 'hor');
 player1.gameBoard.receiveAttack(6, 7)
 player1.gameBoard.receiveAttack(0, 0)
 
-player2.gameBoard.placeShip(2, 2, 4, 'hor');
+player2.gameBoard.placeShip(2, 2, 2, 'hor');
 
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
@@ -91,6 +91,8 @@ function play() {
 
   if (gameState == 'live') {
 
+    console.log('umm yea we live');
+    
     if (otherPlayer.gameBoard.shipsRemaining() == 0) {
       gameState = 'over';
       return play();
@@ -107,7 +109,7 @@ function play() {
       setTimeout(function() {
         currentPlayer.makeMove(otherPlayer);
         play();
-      }, 5000)
+      }, 2000)
 
     }
 
@@ -115,14 +117,38 @@ function play() {
   
 
   if (gameState == 'over') {
-    instruction.textContent = `S${currentPlayer.name} wins!!!`;
+    instruction.textContent = `${currentPlayer.name} wins!!!`;
 
-    player1 = new Player;
-    player2 = new Computer;
-    gameState == 'setup';
+    let playBtn = document.createElement('button');
+    playBtn.textContent = 'Play again?'
+    instruction.appendChild(playBtn);
 
-    body.onclick = () => {
-      if (gameState == 'over') play()
+    playBtn.onclick = () => {
+
+      if (gameState == 'over') {
+
+        console.log('clicked!!');
+
+        player1 = new Player;
+        player2 = new Computer;
+
+        currentPlayer = player2;
+        otherPlayer = player1;
+
+        player1.gameBoard.placeShip(3, 3, 3, 'ver');
+        player1.gameBoard.placeShip(5, 7, 4, 'hor');
+        player2.gameBoard.placeShip(2, 2, 2, 'hor');
+
+        console.log(player1.gameBoard.shipsRemaining());
+        console.log(player2.gameBoard.shipsRemaining());
+        
+        gameState = 'live';
+        console.log(gameState);
+        
+        play();
+
+      }
+
     };
   
   }
@@ -133,7 +159,7 @@ function play() {
 
 // console.log(player1.gameBoard.receiveAttack(0, 0));
 
-instruction.onclick = () => {
+player2Name.onclick = () => {
   player2.makeMove(player1);
   refreshBoard();
 }
