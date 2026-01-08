@@ -35,18 +35,17 @@ class Gameboard {
         if (orientation == 'h') {
 
             if ((x+length) > 10) {
-                console.log(x);
-                console.log(length);
-                
-                console.log(x+length);
-                
-                // throw Error ('Invalid placement??');
+                throw Error ('Invalid placement');
             }
 
             for (let i = 0; i < length; i++) {
 
                 // console.log(x+''+y);
-                
+
+                if (this.board[y][x+i] == 'S') {
+                    throw Error ('Invalid placement');  
+                }
+
                 this.board[y][x+i] = 'S'
                 newShip.coords.push(`${x+i}, ${y}`);
 
@@ -61,6 +60,10 @@ class Gameboard {
             for (let i = 0; i < length; i++) {
 
                 // console.log(x+''+y);
+
+                if (this.board[y+i][x] == 'S') {
+                    throw Error ('Invalid placement');  
+                }
                 
                 this.board[y+i][x] = 'S'
                 newShip.coords.push(`${x}, ${y+i}`);

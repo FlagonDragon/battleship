@@ -16,39 +16,52 @@ const player2Name = document.getElementById("name2");
 player1Name.textContent = player1.name;
 player2Name.textContent = player2.name;
 
-let addShip = document.createElement('button');
-addShip.textContent = 'Add ship';
-info.appendChild(addShip);
+let addShipBtn = document.createElement('button');
+addShipBtn.textContent = 'Add ship';
+info.appendChild(addShipBtn);
 
-addShip.onclick = () => {
+function addShipDOM() {
 
-  // if (player1.gameBoard.ships.length == 3) {
-  //   addShip.textContent = 'Ready';
-  // }
+    if (player1.gameBoard.ships.length == 3) {
+    addShipBtn.textContent = 'Ready';
+  }
 
-  // if (player1.gameBoard.ships.length == 4) {
-  //   addShip.remove();
-  //   gameState = 'live';
-  //   return play();
-  // }
+  if (player1.gameBoard.ships.length == 4) {
+    addShipBtn.remove();
+    gameState = 'live';
+    return play();
+  }
 
-  // let answer = prompt('State XY coordinates and orientation (h or v) of ship. Separate with commas.');
+  let answer = prompt('State XY coordinates and orientation (h or v) of ship. Separate with commas.');
   
-  // let arr = answer.split(',');
+  let arr = answer.split(',');
 
-  // player1.gameBoard.placeShip(Number(arr[0]), Number(arr[1]), player1.gameBoard.ships.length+1, arr[2]);
+  // use try catch here to repeat function. Edit placeShip to throw error for S squares
 
-  player2.populateBoard();
+  try {
 
+    player1.gameBoard.placeShip(Number(arr[0]), Number(arr[1]), player1.gameBoard.ships.length+1, arr[2]);
+
+  } catch {
+
+    alert('Square already occupied!')
+
+    addShipDOM();
+
+  }
+  
   refreshBoard();
 
 };
 
-player1.gameBoard.placeShip(3, 3, 1, 'v');
+addShipBtn.onclick = () => {
 
-player2.gameBoard.placeShip(4, 4, 4, 'h');
-// player2.gameBoard.placeShip(Number(prompt('X coordinate of ship 1')), Number(prompt('Y coordinate of ship 1')), prompt('Length of ship 1'), prompt('Horizontal(hor) or vertical(ver)?'));
-player2.gameBoard.placeShip(0, 1, 2, 'h');
+  addShipDOM();
+
+};
+
+player1.gameBoard.placeShip(3, 3, 1, 'v');
+player2.gameBoard.placeShip(2, 3, 2, 'h');
 
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
