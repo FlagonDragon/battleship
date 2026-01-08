@@ -22,6 +22,19 @@ info.appendChild(addShip);
 
 addShip.onclick = () => {
 
+  if (player1.gameBoard.ships.length == 4) {
+    gameState = 'live';
+    return play();
+  }
+
+  let answer = prompt('State XY coordinates and orientation (h or v) of ship. Separate with commas.');
+  
+  let arr = answer.split(',');
+
+  player1.gameBoard.placeShip(Number(arr[0]), Number(arr[1]), player1.gameBoard.ships.length+1, arr[2]);
+
+  refreshBoard();
+
 };
 
 player1.gameBoard.placeShip(3, 3, 1, 'v');

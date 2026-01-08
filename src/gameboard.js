@@ -34,7 +34,14 @@ class Gameboard {
         
         if (orientation == 'h') {
 
-            if ((x+length) > 10) throw Error ('Invalid placement');
+            if ((x+length) > 10) {
+                console.log(x);
+                console.log(length);
+                
+                console.log(x+length);
+                
+                // throw Error ('Invalid placement??');
+            }
 
             for (let i = 0; i < length; i++) {
 
