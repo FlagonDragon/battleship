@@ -1,10 +1,11 @@
 const Gameboard = require('./gameboard');
+// import { Gameboard } from "./gameboard";
 
-const myGameBoard = new Gameboard();
+const myGameBoard = new Gameboard;
 
 test ('Are there ships remaining?', () => {
 
-    myGameBoard.placeShip(3, 3, 3, 'ver');
+    myGameBoard.placeShip(3, 3, 3, 'v');
 
     expect(myGameBoard.shipsRemaining()).toBe(1);
 
@@ -12,6 +13,6 @@ test ('Are there ships remaining?', () => {
     myGameBoard.receiveAttack(3, 4);
     myGameBoard.receiveAttack(3, 5);
 
-    expect(myGameBoard.shipsRemaining()).toBe('All ships down!');
+    expect(myGameBoard.shipsRemaining()).toBe(0);
 
 })

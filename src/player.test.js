@@ -5,8 +5,8 @@ test('Create individual gameboards', () => {
     const player1 = new Player;
     const computer1 = new Computer;
 
-    player1.gameBoard.placeShip(3, 3, 3, 'ver');
-    computer1.gameBoard.placeShip(5, 5, 4, 'hor');
+    player1.gameBoard.placeShip(3, 3, 3, 'v');
+    computer1.gameBoard.placeShip(5, 5, 4, 'h');
 
     player1.gameBoard.receiveAttack(3, 4);
     player1.gameBoard.receiveAttack(3, 5);

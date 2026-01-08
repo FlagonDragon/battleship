@@ -1,4 +1,4 @@
-let {Gameboard, createBoard} = require('./gameboard');
+let Gameboard = require('./gameboard');
 
 class Player {
 

@@ -1,6 +1,6 @@
 const Ship = require('./ship');
 
-const SSLinebeck = new Ship(4);
+const SSLinebeck = new Ship(1, 4);
 
 test('Is ship sunk', () => {
 

@@ -9,18 +9,26 @@ let player2 = new Computer;
 console.log('YAHOO!!!');
 
 const container = document.getElementById("container");
+const info = document.getElementById("info1");
 const player1Name = document.getElementById("name1");
 const player2Name = document.getElementById("name2");
 
 player1Name.textContent = player1.name;
 player2Name.textContent = player2.name;
 
-player1.gameBoard.placeShip(3, 3, 1, 'ver');
-// player1.gameBoard.placeShip(5, 7, 4, 'hor');
-player1.gameBoard.receiveAttack(6, 7)
-player1.gameBoard.receiveAttack(0, 0)
+let addShip = document.createElement('button');
+addShip.textContent = 'Add ship';
+info.appendChild(addShip);
 
-player2.gameBoard.placeShip(2, 2, 2, 'hor');
+addShip.onclick = () => {
+
+};
+
+player1.gameBoard.placeShip(3, 3, 1, 'v');
+
+player2.gameBoard.placeShip(4, 4, 4, 'h');
+// player2.gameBoard.placeShip(Number(prompt('X coordinate of ship 1')), Number(prompt('Y coordinate of ship 1')), prompt('Length of ship 1'), prompt('Horizontal(hor) or vertical(ver)?'));
+player2.gameBoard.placeShip(0, 1, 2, 'h');
 
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
@@ -79,14 +87,17 @@ let currentPlayer = player2;
 let otherPlayer = player1;
 
 const gameStates = ['setup','live','over'];
-let gameState = gameStates[1];
+let gameState = gameStates[0];
 
 function play() {
 
   if (gameState == 'setup') {
-    player1 = new Player;
-    player2 = new Computer;
+    // player1 = new Player;
+    // player2 = new Computer;
     instruction.textContent = 'Pls place you\'re ships right meow.';
+
+
+
   }
 
   if (gameState == 'live') {
@@ -140,9 +151,9 @@ restart.onclick = () => {
   currentPlayer = player2;
   otherPlayer = player1;
 
-  player1.gameBoard.placeShip(3, 3, 3, 'ver');
-  player1.gameBoard.placeShip(5, 7, 4, 'hor');
-  player2.gameBoard.placeShip(2, 2, 2, 'hor');
+  player1.gameBoard.placeShip(3, 3, 3, 'v');
+  player1.gameBoard.placeShip(5, 7, 4, 'h');
+  player2.gameBoard.placeShip(2, 2, 2, 'h');
   
   gameState = 'live';
   console.log(gameState);
@@ -155,4 +166,9 @@ player2Name.onclick = () => {
   player2.makeMove(player1);
   refreshBoard();
 }
+
+
+refreshBoard();
+
+
 play();

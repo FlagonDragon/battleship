@@ -17,11 +17,6 @@ function createBoard() {
 
 }
 
-
-
-// console.log(emptyBoard);
-
-
 class Gameboard {
 
     constructor() {
@@ -37,7 +32,7 @@ class Gameboard {
 
         // console.log(x+''+y);
         
-        if (orientation == 'hor') {
+        if (orientation == 'h') {
 
             if ((x+length) > 10) throw Error ('Invalid placement');
 
@@ -52,7 +47,7 @@ class Gameboard {
 
         }
 
-        if (orientation == 'ver') {
+        if (orientation == 'v') {
 
             if ((y+length) > 10) throw Error ('Invalid placement');
 
@@ -113,16 +108,4 @@ class Gameboard {
 
 };
 
-// myGameBoard = new Gameboard();
-
-// console.log(myGameBoard);
-
-
-// myGameBoard.placeShip(3, 3, 3, 'ver');
-// myGameBoard.placeShip(5, 5, 2, 'hor');
-
-// myGameBoard.placeShip(2, 6, 4, 'ver');
-
-// console.log(myGameBoard.board);
-
-module.exports = {Gameboard, createBoard};
+module.exports = Gameboard;
