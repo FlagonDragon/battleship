@@ -22,16 +22,23 @@ info.appendChild(addShip);
 
 addShip.onclick = () => {
 
-  if (player1.gameBoard.ships.length == 4) {
-    gameState = 'live';
-    return play();
-  }
+  // if (player1.gameBoard.ships.length == 3) {
+  //   addShip.textContent = 'Ready';
+  // }
 
-  let answer = prompt('State XY coordinates and orientation (h or v) of ship. Separate with commas.');
+  // if (player1.gameBoard.ships.length == 4) {
+  //   addShip.remove();
+  //   gameState = 'live';
+  //   return play();
+  // }
+
+  // let answer = prompt('State XY coordinates and orientation (h or v) of ship. Separate with commas.');
   
-  let arr = answer.split(',');
+  // let arr = answer.split(',');
 
-  player1.gameBoard.placeShip(Number(arr[0]), Number(arr[1]), player1.gameBoard.ships.length+1, arr[2]);
+  // player1.gameBoard.placeShip(Number(arr[0]), Number(arr[1]), player1.gameBoard.ships.length+1, arr[2]);
+
+  player2.populateBoard();
 
   refreshBoard();
 

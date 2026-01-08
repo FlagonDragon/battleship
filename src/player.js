@@ -34,6 +34,34 @@ class Computer extends Player {
 
     }
 
+    randomShip(length) {
+
+        let orientation = Math.random()
+
+        if (orientation > 0.5) {
+            orientation = 'v';
+        } else {
+            orientation = 'h';
+        }
+
+        try {
+            this.gameBoard.placeShip(Math.round(Math.random() * 9), Math.round(Math.random() * 9), length, orientation);
+        } catch {
+            this.randomShip(length);
+        }
+
+    }
+
+    populateBoard() {
+
+        this.randomShip(1);
+        this.randomShip(2);
+        this.randomShip(3);
+        this.randomShip(4);
+        this.randomShip(5);
+
+    }
+
 }
 
 module.exports = {Player, Computer};
