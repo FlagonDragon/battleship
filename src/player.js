@@ -47,6 +47,7 @@ class Computer extends Player {
         try {
             this.gameBoard.placeShip(Math.round(Math.random() * 9), Math.round(Math.random() * 9), length, orientation);
         } catch {
+            this.gameBoard.ships.pop();
             this.randomShip(length);
         }
 
