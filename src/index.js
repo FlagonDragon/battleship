@@ -21,13 +21,14 @@ addShipBtn.textContent = 'Add ship';
 info.appendChild(addShipBtn);
 
 function addShipDOM() {
-
-    if (player1.gameBoard.ships.length == 3) {
+  
+  if (player1.gameBoard.ships.length == 4) {
     addShipBtn.textContent = 'Ready';
   }
 
-  if (player1.gameBoard.ships.length == 4) {
+  if (player1.gameBoard.ships.length == 5) {
     addShipBtn.remove();
+    player2.populateBoard();
     gameState = 'live';
     return play();
   }
@@ -50,6 +51,8 @@ function addShipDOM() {
 
   }
   
+  console.log(player1.gameBoard.ships);
+
   refreshBoard();
 
 };
