@@ -1,163 +1,33 @@
-const {Player, Computer} = require('./player');
+const { player1, player2 } = require('./player');
 
-let player1 = new Player;
-let player2 = new Computer;
-
-const container = document.getElementById("container");
-const info = document.getElementById("info1");
+const instruction = document.getElementById('instruction');
 const player1Name = document.getElementById("name1");
 const player2Name = document.getElementById("name2");
 
+instruction.textContent = 'Placeholder';
 player1Name.textContent = player1.name;
 player2Name.textContent = player2.name;
 
-let addShipBtn = document.createElement('button');
-addShipBtn.textContent = 'Add ship';
-info.appendChild(addShipBtn);
+function refreshDOM(gameState, currentPlayer) {
 
-player1.gameBoard.placeShip(0,0,1,'v');
-player1.gameBoard.placeShip(1,0,2,'v');
-player1.gameBoard.placeShip(2,0,3,'v');
-player1.gameBoard.placeShip(3,0,4,'v');
-player1.gameBoard.placeShip(4,0,5,'v');
-
-function addShipDOM() {
+  console.log('huh???');
+  console.log(gameState);
   
-  if (player1.gameBoard.ships.length == 4) {
-    addShipBtn.textContent = 'Ready';
-  }
-
-  if (player1.gameBoard.ships.length == 5) {
-    addShipBtn.remove();
-    player2.populateBoard();
-    gameState = 'live';
-    return play();
-  }
-
-  let answer = prompt('State XY coordinates and orientation (h or v) of ship. Separate with commas.');
-  
-  let arr = answer.split(',');
-
-  try {
-
-    player1.gameBoard.placeShip(Number(arr[0]), Number(arr[1]), player1.gameBoard.ships.length+1, arr[2]);
-
-  } catch {
-
-    alert('Square already occupied!')
-
-    addShipDOM();
-
-  }
-  
-  refreshBoard();
-
-};
-
-addShipBtn.onclick = () => {
-  addShipDOM();
-};
-
-let map1 = document.getElementById('map1');
-let map2 = document.getElementById('map2');
-
-function drawBoard(player, map) {
-
-  for (let i = 0; i <= 9; i++) {
-
-    for (let j = 0; j <= 9; j++) {
-        
-      let div = document.createElement('div');
-      div.textContent = player.gameBoard.board[i][j];
-      div.onclick = () => {
-        player.gameBoard.receiveAttack([j],[i])
-        console.log(j+', '+i);
-        
-        refreshBoard();
-
-        play();
-
-      };
-      map.appendChild(div);
-
-    }
-
-  }
-
-};
-
-function removeBoard(map) {
-
-  while (map.lastElementChild) {
-
-    map.removeChild(map.lastElementChild);
-
-  }
-
-};
-
-function refreshBoard() {
-
-  removeBoard(map1);
-  removeBoard(map2);
-
-  drawBoard(player1, map1);
-  drawBoard(player2, map2);
-
-};
-
-refreshBoard();
-
-const instruction = document.getElementById('instruction');
-instruction.textContent = 'Commence the games.'
-
-let currentPlayer = player2;
-let otherPlayer = player1;
-
-const gameStates = ['setup','live','over'];
-let gameState = gameStates[0];
-
-function play() {
 
   if (gameState == 'setup') {
-    // player1 = new Player;
-    // player2 = new Computer;
+
     instruction.textContent = 'Pls place you\'re ships right meow.';
-
-
 
   }
 
   if (gameState == 'live') {
 
-    console.log(otherPlayer.name+' ships remaining: '+otherPlayer.gameBoard.shipsRemaining());
-    console.log(otherPlayer.gameBoard.ships);
-
+    console.log('INSTRUCTION LIVE');
     
-    if (otherPlayer.gameBoard.shipsRemaining() == 0) {
-      gameState = 'over';
-      return play();
-    }
 
-    let newCurrentPlayer = otherPlayer;
-    otherPlayer = currentPlayer;
-    currentPlayer = newCurrentPlayer;
-    
     instruction.textContent = `Your move, ${currentPlayer.name}.`;
-  
-    if (currentPlayer.name == 'Computer') {
-
-      setTimeout(function() {
-        console.log(currentPlayer.name);
-        
-        currentPlayer.makeMove(otherPlayer);
-        play();
-      }, 250)
-
-    }
-
-  };
-  
+    
+  }
 
   if (gameState == 'over') {
 
@@ -165,44 +35,6 @@ function play() {
 
   }
 
-  refreshBoard();
-
-}
-
-// console.log(player1.gameBoard.receiveAttack(0, 0));
-
-const restart = document.getElementById('restart');
-
-restart.onclick = () => {
-
-  player1 = new Player;
-  player2 = new Computer;
-
-  currentPlayer = player2;
-  otherPlayer = player1;
-
-  player1.gameBoard.placeShip(3, 3, 3, 'v');
-  player1.gameBoard.placeShip(5, 7, 4, 'h');
-  player2.gameBoard.placeShip(2, 2, 2, 'h');
-  
-  gameState = 'live';
-  console.log(gameState);
-  
-  play();
-
 };
 
-player2Name.onclick = () => {
-//   player2.randomShip(5);
-  player2.populateBoard();
-  console.log(player2);
-  refreshBoard();
-}
-
-
-refreshBoard();
-
-
-play();
-
-module.exports = { gameState, refreshBoard , play };
+module.exports = refreshDOM;

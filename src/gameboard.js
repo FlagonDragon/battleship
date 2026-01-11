@@ -81,6 +81,10 @@ class Gameboard {
     receiveAttack(x, y) {
 
         if (this.board[y][x] == 'X' || this.board[y][x] == 'M') { 
+            console.log(this.board);
+            
+            console.log(this.board[y][x]);
+            
             throw Error('Repeated coordinate')
         }
 
@@ -122,4 +126,7 @@ class Gameboard {
 
 };
 
-module.exports = Gameboard;
+const gameStates = ['setup','live','over'];
+let gameState = gameStates[0];
+
+module.exports = { Gameboard, gameState};

@@ -1,4 +1,4 @@
-let Gameboard = require('./gameboard');
+let { Gameboard } = require('./gameboard');
 
 class Player {
 
@@ -65,4 +65,10 @@ class Computer extends Player {
 
 }
 
-module.exports = {Player, Computer};
+let player1 = new Player;
+let player2 = new Computer;
+
+let currentPlayer = player2;
+let otherPlayer = player1;
+
+module.exports = { Player, Computer, player1, player2, currentPlayer, otherPlayer };

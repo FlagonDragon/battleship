@@ -1,8 +1,6 @@
 import './styles.css';
-const { gameState, refreshBoard , play } = require('./DOM');
+const play = require('./logic');
 
 console.log('YAHOO!!!');
-console.log(gameState);
 
-refreshBoard();
 play();
