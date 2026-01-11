@@ -1,21 +1,7 @@
 let { Player, Computer, player1, player2, currentPlayer, otherPlayer } = require('./player');
 let { gameState } = require('./gameboard');
-const refreshDOM = require('./DOM');
 const refreshBoard = require('./refreshBoard');
-
-
-
-
-function testFunc() {
-  console.log('heyyyyy');
-  refreshBoard(player1, player2, testFunc);
-  play();
-  refreshBoard(player1, player2, testFunc);
-  refreshDOM(gameState, currentPlayer);
-}
-
-refreshBoard(player1, player2, testFunc);
-
+const refreshDOM = require('./DOM');
 
 function play() {
 
@@ -24,11 +10,11 @@ function play() {
     player1 = new Player;
     player2 = new Computer;
 
-player1.gameBoard.placeShip(0,0,1,'v');
-player1.gameBoard.placeShip(1,0,2,'v');
-player1.gameBoard.placeShip(2,0,3,'v');
-player1.gameBoard.placeShip(3,0,4,'v');
-// player1.gameBoard.placeShip(4,0,5,'v');
+    player1.gameBoard.placeShip(0,0,1,'v');
+    player1.gameBoard.placeShip(1,0,2,'v');
+    player1.gameBoard.placeShip(2,0,3,'v');
+    player1.gameBoard.placeShip(3,0,4,'v');
+    player1.gameBoard.placeShip(4,0,5,'v');
 
     currentPlayer = player2;
     otherPlayer = player1;
@@ -37,8 +23,8 @@ player1.gameBoard.placeShip(3,0,4,'v');
 
   if (gameState == 'live') {
 
-  refreshDOM(gameState, currentPlayer);
 
+    // restartBtn.style.backgroundColor = "purple";
 
     if (otherPlayer.gameBoard.shipsRemaining() == 0) {
 
@@ -60,24 +46,17 @@ player1.gameBoard.placeShip(3,0,4,'v');
 
         play();
         
-      }, 1000)
+      }, 100)
 
     }
 
-  refreshDOM(gameState, currentPlayer);
-
-
-  };
+  }
   
   if (gameState == 'over') {
+    restartBtn.style.backgroundColor = "black";
+  }  
 
-
-  }
-
-  console.log(gameState);
-  
-
-  refreshBoard(player1, player2, testFunc);
+  refreshBoard(player1, player2, play);
   refreshDOM(gameState, currentPlayer);
 
 };
@@ -109,7 +88,6 @@ function addShipDOM() {
     addShipBtn.style.display = 'none';
     player2.populateBoard();
     gameState = 'live';
-    console.log(gameState);
     
     return play();
   }
@@ -124,30 +102,23 @@ function addShipDOM() {
 
   } catch {
 
-    alert('Square already occupied!')
+    alert('Unavailable square!')
 
     player1.gameBoard.ships.pop();
 
     addShipDOM();
 
   }
-
-  refreshBoard(player1, player2, testFunc);  
   
 };
 
 restartBtn.onclick = () => {
-  
   restart();
-
 };
 
 addShipBtn.onclick = () => {
-  
   addShipDOM();
-
-  refreshBoard(player1, player2, testFunc);
-
+  refreshBoard(player1, player2, play);
 };
 
 module.exports = play;

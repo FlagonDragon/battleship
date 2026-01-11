@@ -3,7 +3,7 @@ let map2 = document.getElementById('map2');
 
 function drawBoard(player, map, myFunc) {
 
-  console.log(player);
+  // console.log(player);
 
   for (let i = 0; i <= 9; i++) {
 
