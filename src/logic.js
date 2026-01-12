@@ -52,7 +52,7 @@ function play() {
 
         play();
         
-      }, 5000)
+      }, 100)
 
     }
 
@@ -62,7 +62,7 @@ function play() {
     restartBtn.style.backgroundColor = "black";
   }  
 
-  refreshBoard(currentPlayer, otherPlayer, play);
+  refreshBoard(player1, player2, play);
   refreshDOM(gameState, currentPlayer);
 
 };
@@ -124,7 +124,7 @@ restartBtn.onclick = () => {
 
 addShipBtn.onclick = () => {
   addShipDOM();
-  refreshBoard(currentPlayer, otherPlayer, play);
+  refreshBoard(player1, player2, play);
 };
 
 module.exports = play;
