@@ -32,9 +32,9 @@ function refreshDOM(gameState, currentPlayer) {
 
   if (gameState == 'setup') {
 
-    instruction.textContent = 'Pls place you\'re ships right meow.';
+    instruction.textContent = 'Marshal your fleet';
 
-    restartBtn.style.backgroundColor =  'whitesmoke';
+    restartBtn.style.background =  '#f5f5f5';
     restartBtn.style.color =  'black';
     restartBtn.style.fontWeight = 'regular';
 

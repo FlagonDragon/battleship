@@ -2,7 +2,7 @@ let { Gameboard } = require('./gameboard');
 
 class Player {
 
-    constructor(name = 'Player', num = 1) {
+    constructor(name = 'Admiral', num = 1) {
         this.name = name;
         this.num = num;
         this.gameBoard = new Gameboard;
