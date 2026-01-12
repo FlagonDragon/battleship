@@ -1,7 +1,13 @@
-let { Player, Computer, player1, player2, currentPlayer, otherPlayer } = require('./player');
+let { Player, Computer } = require('./player');
 let { gameState } = require('./gameboard');
 const refreshBoard = require('./refreshBoard');
 const refreshDOM = require('./DOM');
+
+let player1 = new Player;
+let player2 = new Computer;
+
+let currentPlayer = player2;
+let otherPlayer = player1;
 
 function play() {
 
@@ -46,7 +52,7 @@ function play() {
 
         play();
         
-      }, 100)
+      }, 5000)
 
     }
 
@@ -56,7 +62,7 @@ function play() {
     restartBtn.style.backgroundColor = "black";
   }  
 
-  refreshBoard(player1, player2, play);
+  refreshBoard(currentPlayer, otherPlayer, play);
   refreshDOM(gameState, currentPlayer);
 
 };
@@ -118,7 +124,7 @@ restartBtn.onclick = () => {
 
 addShipBtn.onclick = () => {
   addShipDOM();
-  refreshBoard(player1, player2, play);
+  refreshBoard(currentPlayer, otherPlayer, play);
 };
 
 module.exports = play;

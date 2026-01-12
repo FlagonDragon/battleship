@@ -1,11 +1,15 @@
 let { Gameboard } = require('./gameboard');
 
+let map1 = document.getElementById('map1');
+let map2 = document.getElementById('map2');
+
 class Player {
 
     constructor(name = 'Admiral', num = 1) {
         this.name = name;
         this.num = num;
         this.gameBoard = new Gameboard;
+        this.map = map1;
     }
 
 }
@@ -18,6 +22,7 @@ class Computer extends Player {
         super(name)
         this.num = num;
         this.gameBoard = new Gameboard;
+        this.map = map2;
     }
 
     makeMove(player) {

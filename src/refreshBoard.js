@@ -1,7 +1,7 @@
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
 
-function drawBoard(player, map, myFunc) {
+function drawCurrentBoard(player, map, myFunc) {
 
   // console.log(player);
 
@@ -13,7 +13,29 @@ function drawBoard(player, map, myFunc) {
 
       div.textContent = player.gameBoard.board[i][j];
 
-      // div.classList.add('square');
+      map.appendChild(div);
+
+    }
+
+  }
+
+};
+
+function drawOppBoard(player, map, myFunc) {
+
+  // console.log(player);
+
+  for (let i = 0; i <= 9; i++) {
+
+    for (let j = 0; j <= 9; j++) {
+        
+      let div = document.createElement('div');
+
+      if (player.gameBoard.board[i][j] == 'S') {
+        div.textContent = 'O';
+      } else {
+        div.textContent = player.gameBoard.board[i][j];
+      }
 
       div.onclick = () => {
 
@@ -46,8 +68,8 @@ function refreshBoard(player1, player2, myFunc) {
   removeBoard(map1);
   removeBoard(map2);
 
-  drawBoard(player1, map1, myFunc);
-  drawBoard(player2, map2, myFunc);
+  drawCurrentBoard(player1, player1.map, myFunc);
+  drawOppBoard(player2, player2.map, myFunc);
 
 };
 
