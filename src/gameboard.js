@@ -124,6 +124,25 @@ class Gameboard {
 
     }
 
+    sunkCoords() {
+        
+        let sunkCoords = [];
+
+        this.ships.forEach(ship => {
+
+            if (ship.sunk) {
+
+                ship.coords.forEach(coord => {
+                    sunkCoords.push(coord);
+                });
+
+            }
+
+        });
+
+        return sunkCoords;
+    }
+
 };
 
 const gameStates = ['setup','live','over'];

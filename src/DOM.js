@@ -38,8 +38,6 @@ function refreshDOM(gameState, currentPlayer) {
     restartBtn.style.color =  'black';
     restartBtn.style.fontWeight = 'regular';
 
-
-
   }
 
   if (gameState == 'live') {    

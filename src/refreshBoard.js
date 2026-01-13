@@ -3,7 +3,7 @@ let map2 = document.getElementById('map2');
 
 function drawCurrentBoard(player, map, myFunc) {
 
-  // console.log(player);
+  let sunkCoords = player.gameBoard.sunkCoords();
 
   for (let i = 0; i <= 9; i++) {
 
@@ -12,6 +12,10 @@ function drawCurrentBoard(player, map, myFunc) {
       let div = document.createElement('div');
 
       div.textContent = player.gameBoard.board[i][j];
+
+      if (sunkCoords.includes(`${j}, ${i}`)) {
+        div.style.color = 'red';
+      }
 
       map.appendChild(div);
 
@@ -23,7 +27,7 @@ function drawCurrentBoard(player, map, myFunc) {
 
 function drawOppBoard(player, map, myFunc) {
 
-  // console.log(player);
+  let sunkCoords = player.gameBoard.sunkCoords();
 
   for (let i = 0; i <= 9; i++) {
 
@@ -45,11 +49,20 @@ function drawOppBoard(player, map, myFunc) {
 
       };
 
+      if (sunkCoords.includes(`${j}, ${i}`)) {
+        div.style.color = 'red';
+      }
+
       map.appendChild(div);
 
     }
 
   }
+
+  console.log(player);
+  console.log(player.gameBoard.ships);
+  console.log(sunkCoords);
+
 
 };
 
