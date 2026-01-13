@@ -43,9 +43,15 @@ function drawOppBoard(player, map, myFunc) {
 
       div.onclick = () => {
 
+        let currValue = player.gameBoard.board[i][j];
+
         player.gameBoard.receiveAttack([j],[i]);
 
-        myFunc()
+        if (player.gameBoard.board[i][j] != currValue) {
+
+          myFunc();
+
+        }
 
       };
 
@@ -58,11 +64,6 @@ function drawOppBoard(player, map, myFunc) {
     }
 
   }
-
-  console.log(player);
-  console.log(player.gameBoard.ships);
-  console.log(sunkCoords);
-
 
 };
 

@@ -32,7 +32,7 @@ function refreshDOM(gameState, currentPlayer) {
 
   if (gameState == 'setup') {
 
-    instruction.textContent = 'Marshal your fleet';
+    instruction.textContent = 'Marshal your fleet.';
 
     restartBtn.style.background =  '#f5f5f5';
     restartBtn.style.color =  'black';

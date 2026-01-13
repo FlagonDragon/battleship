@@ -80,14 +80,6 @@ class Gameboard {
 
     receiveAttack(x, y) {
 
-        if (this.board[y][x] == '✸' || this.board[y][x] == '⛶') { 
-            console.log(this.board);
-            
-            console.log(this.board[y][x]);
-            
-            throw Error('Repeated coordinate')
-        }
-
         if (this.board[y][x] == '⛴') {
 
             this.board[y][x] = '✸'
@@ -103,8 +95,16 @@ class Gameboard {
             });
 
         } else {
+            
+            if (this.board[y][x] != '✸' && this.board[y][x] != '⛶') { 
 
-            this.board[y][x] = '⛶'
+                console.log(+x+', '+y+': '+this.board[y][x]);     
+                console.log(this.board[y][x] != '✸');
+                           
+
+                this.board[y][x] = '⛶';
+
+            }
 
         } 
 
@@ -125,7 +125,7 @@ class Gameboard {
     }
 
     sunkCoords() {
-        
+
         let sunkCoords = [];
 
         this.ships.forEach(ship => {

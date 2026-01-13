@@ -30,11 +30,19 @@ class Computer extends Player {
         let y = Math.round(Math.random() * 9);
 
         try {
+
+            if (player.gameBoard.board[y][x] == '✸' || player.gameBoard.board[y][x] == '⛶') {
+                throw Error('Try other square!');
+            }
+
             player.gameBoard.receiveAttack(x, y);
+
         } catch {
+
             console.log('retrying');
             
             this.makeMove(player);
+            
         }
 
     }
