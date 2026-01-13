@@ -23,9 +23,22 @@ class Computer extends Player {
         this.num = num;
         this.gameBoard = new Gameboard;
         this.map = map2;
+        this.lastHit = '';
     }
 
     makeMove(player) {
+
+        console.log(this.lastHit );  
+
+        if (this.lastHit != '') {
+
+            if (player.gameBoard.board[this.lastHit.y][this.lastHit.x] == '✸') {
+                console.log('lasthit hit');
+                console.log(this.getAdjacent(this.lastHit.x, this.lastHit.y));
+            }
+
+        }
+
         let x = Math.round(Math.random() * 9);
         let y = Math.round(Math.random() * 9);
 
@@ -37,6 +50,8 @@ class Computer extends Player {
 
             player.gameBoard.receiveAttack(x, y);
 
+            this.lastHit = {x: x, y: y};
+
         } catch {
 
             console.log('retrying');
@@ -45,7 +60,7 @@ class Computer extends Player {
             
         }
 
-        console.log(this.getHitCoords(player));
+        // console.log(this.getHitCoords(player));
 
     }
 
@@ -79,6 +94,16 @@ class Computer extends Player {
         });   
         
         return hitCoords;
+
+    }
+
+    getAdjacent(x, y) {
+
+        let adjacentCoords = [];
+
+        adjacentCoords.push([x, y-1],[x+1, y-1],[x+1, y], [x+1, y+1], [x, y+1], [x-1, y+1], [x-1, y], [x-1, y-1]);
+
+        return adjacentCoords;
 
     }
 
