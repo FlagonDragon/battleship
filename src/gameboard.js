@@ -96,11 +96,7 @@ class Gameboard {
 
         } else {
             
-            if (this.board[y][x] != '✸' && this.board[y][x] != '⛶') { 
-
-                console.log(+x+', '+y+': '+this.board[y][x]);     
-                console.log(this.board[y][x] != '✸');
-                           
+            if (this.board[y][x] != '✸' && this.board[y][x] != '⛶') {   
 
                 this.board[y][x] = '⛶';
 
