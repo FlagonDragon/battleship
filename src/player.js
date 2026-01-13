@@ -45,6 +45,8 @@ class Computer extends Player {
             
         }
 
+        console.log(this.getHitCoords(player));
+
     }
 
     randomShip(length) {
@@ -63,6 +65,20 @@ class Computer extends Player {
             this.gameBoard.ships.pop();
             this.randomShip(length);
         }
+
+    }
+
+    getHitCoords(player) {
+
+        let hitCoords = [];
+
+        player.gameBoard.ships.forEach(ship => {
+            if (ship.hits > 0 && ship.sunk == false) {
+                hitCoords.push(ship.coords);
+            }
+        });   
+        
+        return hitCoords;
 
     }
 
