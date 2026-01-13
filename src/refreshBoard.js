@@ -31,8 +31,8 @@ function drawOppBoard(player, map, myFunc) {
         
       let div = document.createElement('div');
 
-      if (player.gameBoard.board[i][j] == 'S') {
-        div.textContent = 'O';
+      if (player.gameBoard.board[i][j] == '⛴') {
+        div.textContent = '∼';
       } else {
         div.textContent = player.gameBoard.board[i][j];
       }

@@ -6,7 +6,7 @@ function createBoard() {
     let boardRow = []
 
     for (let x = 0; x <= 9; x++) {
-        boardRow.push('O');
+        boardRow.push('∼');
     };
 
     for (let y = 0; y <= 9; y++) {
@@ -40,7 +40,7 @@ class Gameboard {
 
             for (let i = 0; i < length; i++) {
 
-                if (this.board[y][x+i] == 'S') {
+                if (this.board[y][x+i] == '⛴') {
                     throw Error ('Invalid placement');  
                 }
 
@@ -48,7 +48,7 @@ class Gameboard {
 
             for (let i = 0; i < length; i++) {
 
-                this.board[y][x+i] = 'S'
+                this.board[y][x+i] = '⛴'
                 newShip.coords.push(`${x+i}, ${y}`);
 
             }
@@ -61,7 +61,7 @@ class Gameboard {
 
             for (let i = 0; i < length; i++) {
 
-                if (this.board[y+i][x] == 'S') {
+                if (this.board[y+i][x] == '⛴') {
                     throw Error ('Invalid placement');  
                 }
 
@@ -69,7 +69,7 @@ class Gameboard {
 
             for (let i = 0; i < length; i++) {
                 
-                this.board[y+i][x] = 'S'
+                this.board[y+i][x] = '⛴'
                 newShip.coords.push(`${x}, ${y+i}`);
 
             }
@@ -80,7 +80,7 @@ class Gameboard {
 
     receiveAttack(x, y) {
 
-        if (this.board[y][x] == 'X' || this.board[y][x] == 'M') { 
+        if (this.board[y][x] == '✸' || this.board[y][x] == '⛶') { 
             console.log(this.board);
             
             console.log(this.board[y][x]);
@@ -88,9 +88,9 @@ class Gameboard {
             throw Error('Repeated coordinate')
         }
 
-        if (this.board[y][x] == 'S') {
+        if (this.board[y][x] == '⛴') {
 
-            this.board[y][x] = 'X'
+            this.board[y][x] = '✸'
 
             this.ships.forEach(ship => {
                 
@@ -104,7 +104,7 @@ class Gameboard {
 
         } else {
 
-            this.board[y][x] = 'M'
+            this.board[y][x] = '⛶'
 
         } 
 
