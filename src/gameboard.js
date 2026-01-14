@@ -82,7 +82,9 @@ class Gameboard {
 
         if (this.board[y][x] == '⛴') {
 
-            this.board[y][x] = '✸'
+            this.board[y][x] = '✸';
+
+            console.log(this.board[y][x]);
 
             this.ships.forEach(ship => {
                 

@@ -14,8 +14,6 @@ class Player {
 
 }
 
-const player = new Player();
-
 class Computer extends Player {
 
     constructor(name = 'Computer', num = 1) {
@@ -28,23 +26,31 @@ class Computer extends Player {
 
     makeMove(player) {
 
-        console.log(this.lastHit );  
+        let x = '';
+        let y = '';
 
         if (this.lastHit != '') {
 
             if (player.gameBoard.board[this.lastHit.y][this.lastHit.x] == '✸') {
-                console.log('lasthit hit');
-                console.log(this.getAdjacent(this.lastHit.x, this.lastHit.y));
+               
+                let coords = this.getAdjacent(this.lastHit.x, this.lastHit.y, player);                
+
+                x = coords.x;
+                y = coords.y;
+
+            } else {
+                x = Math.round(Math.random() * 9);
+                y = Math.round(Math.random() * 9);
             }
 
+        } else {
+            x = Math.round(Math.random() * 9);
+            y = Math.round(Math.random() * 9);            
         }
-
-        let x = Math.round(Math.random() * 9);
-        let y = Math.round(Math.random() * 9);
 
         try {
 
-            if (player.gameBoard.board[y][x] == '✸' || player.gameBoard.board[y][x] == '⛶') {
+            if (player.gameBoard.board[y][x] == '✸' || player.gameBoard.board[y][x] == '⛶') {                
                 throw Error('Try other square!');
             }
 
@@ -52,15 +58,11 @@ class Computer extends Player {
 
             this.lastHit = {x: x, y: y};
 
-        } catch {
+        } catch {  
 
-            console.log('retrying');
-            
             this.makeMove(player);
-            
-        }
 
-        // console.log(this.getHitCoords(player));
+        }
 
     }
 
@@ -83,27 +85,54 @@ class Computer extends Player {
 
     }
 
-    getHitCoords(player) {
-
-        let hitCoords = [];
-
-        player.gameBoard.ships.forEach(ship => {
-            if (ship.hits > 0 && ship.sunk == false) {
-                hitCoords.push(ship.coords);
-            }
-        });   
-        
-        return hitCoords;
-
-    }
-
-    getAdjacent(x, y) {
+    getAdjacent(x, y, player) {
 
         let adjacentCoords = [];
 
-        adjacentCoords.push([x, y-1],[x+1, y-1],[x+1, y], [x+1, y+1], [x, y+1], [x-1, y+1], [x-1, y], [x-1, y-1]);
+        adjacentCoords.push([x, y-1], [x+1, y], [x, y+1], [x-1, y]);
 
-        return adjacentCoords;
+        adjacentCoords.forEach(coords => {
+
+            if (coords[0] > 9 || coords[0] < 0 || coords[1] > 9 || coords[1] < 0) {
+                
+                adjacentCoords[adjacentCoords.indexOf(coords)] = adjacentCoords[adjacentCoords.length - 1];
+
+                adjacentCoords.pop();
+
+            }
+            
+        });
+
+        console.log(adjacentCoords);
+        
+        let availableSquares = 0;
+
+        adjacentCoords.forEach(coords => {
+
+            if (player.gameBoard.board[coords[1]][coords[0]] == '∼' || player.gameBoard.board[coords[1]][coords[0]] == '⛴') {
+                console.log('available square: '+coords+' ('+player.gameBoard.board[coords[1]][coords[0]]+')');
+                availableSquares++;
+            }
+            
+        });
+
+        console.log(availableSquares);
+        console.log(player.name);
+        console.log(player.gameBoard.board);
+
+        
+        
+
+        if (availableSquares == 0) {
+            return {x: Math.round(Math.random() * 9), y: Math.round(Math.random() * 9)};
+        }
+
+        let index = adjacentCoords[Math.round(Math.random() * (adjacentCoords.length-1))];
+
+        console.log(index);
+        
+
+        return {x: index[0], y: index[1]};
 
     }
 
