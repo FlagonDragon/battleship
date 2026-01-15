@@ -11,7 +11,14 @@ let otherPlayer;
 let gameState = 'setup';
 let gameMode = 'multi';
 
-function play() {
+function play(changeState) {
+
+  if (changeState) {
+    gameState = changeState;
+    console.log('state changed');
+  }
+
+  console.log(gameState);
 
   if (gameState == 'setup') {
 
@@ -19,8 +26,8 @@ function play() {
       player1 = new Player;
       player2 = new Computer;
     } else if (gameMode == 'multi') {
-      player1 = new Player('Player1',1);
-      player2 = new Player('Player2',2);
+      player1 = new Player('Player 1',1);
+      player2 = new Player('Player 2',2);
     }
 
     player1.gameBoard.placeShip(0,0,1,'v');
@@ -38,9 +45,7 @@ function play() {
     currentPlayer = player2;
     otherPlayer = player1;
     
-  }
-
-  if (gameState == 'live') {
+  } else if (gameState == 'live') {
 
     if (otherPlayer.gameBoard.shipsRemaining() == 0) {
 
@@ -66,19 +71,33 @@ function play() {
 
     }
 
+    // if (gameMode == 'multi') {
+    //   console.log(gameMode);
+      
+    //   gameState = 'pass';
+
+    //   console.log(gameState);
+      
+    // }    
+
+  } else if (gameState == 'over') {
+
+    //
+
+  } else if (gameState == 'pass') {
+    gameState = 'live';
   }
-  
-  if (gameState == 'over') {
-    // use drawCurrentBoard in opp board so that not clickable???
-  }  
 
   if (gameMode == 'single') {
     refreshBoard(player1, player2, play, gameState);
   } else if (gameMode == 'multi') {
     refreshBoard(currentPlayer, otherPlayer, play, gameState);
   }
-  refreshDOM(gameState, currentPlayer);
 
+  refreshDOM(gameState, currentPlayer, play);
+
+  console.log('(end) '+gameState);
+  
 };
 
 const restartBtn = document.getElementById('restartBtn');

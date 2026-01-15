@@ -13,6 +13,8 @@ instruction.textContent = 'Placeholder';
 player1Name.textContent = player1.name;
 player2Name.textContent = player2.name;
 
+let passBtn = document.createElement('button');
+
 function appendCoords(myDiv) {
 
   for (let i = 0; i <= 9; i++) {
@@ -28,7 +30,12 @@ appendCoords(upperCoords2);
 appendCoords(leftCoords1);
 appendCoords(leftCoords2);
 
-function refreshDOM(gameState, currentPlayer) {
+function refreshDOM(gameState, currentPlayer, myFunc) {
+
+  if (currentPlayer.name = 'Player 1') {
+    player1Name.textContent = currentPlayer.name;
+    player2Name.textContent = 'Player 2';
+  }
 
   if (gameState == 'setup') {
 
@@ -43,6 +50,28 @@ function refreshDOM(gameState, currentPlayer) {
   if (gameState == 'live') {    
 
     instruction.textContent = `Your move, ${currentPlayer.name}.`;
+
+  }
+
+  if (gameState == 'pass') {
+
+    instruction.textContent = '';
+    passBtn.textContent = 'Pass turn.'
+    instruction.appendChild(passBtn);
+
+    passBtn.onclick = () => {
+
+      passBtn.textContent = 'Play';
+
+      passBtn.onclick = () => {
+
+        gameState = 'live';
+        passBtn.remove();
+        myFunc();
+
+      };
+
+    };
 
   }
 

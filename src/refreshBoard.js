@@ -43,9 +43,9 @@ function drawOppBoard(player, map, myFunc, gameState) {
         div.textContent = player.gameBoard.board[i][j];
       }
 
-      div.onclick = () => {
+      if (gameState != 'over' && gameState != 'pass') {
 
-        if (gameState != 'over') {
+        div.onclick = () => {
 
           let currValue = player.gameBoard.board[i][j];
 
@@ -53,13 +53,17 @@ function drawOppBoard(player, map, myFunc, gameState) {
 
           if (player.gameBoard.board[i][j] != currValue) {
 
+            // if (player.name == `Player ${player.num}`) {
+            //   gameState = ''
+            // }
+
             myFunc();
 
           }
 
-        }
+        };
 
-      };
+      }
 
       if (sunkCoords.includes(`${j}, ${i}`)) {
         div.style.color = 'red';
@@ -87,6 +91,12 @@ function refreshBoard(player1, player2, myFunc, gameState) {
 
   removeBoard(map1);
   removeBoard(map2);
+
+  if (gameState == 'pass') {
+    drawOppBoard(player1, player1.map, myFunc, gameState);
+    drawOppBoard(player2, player2.map, myFunc, gameState);
+    return;
+  }
 
   drawCurrentBoard(player1, player1.map);
   drawOppBoard(player2, player2.map, myFunc, gameState);
