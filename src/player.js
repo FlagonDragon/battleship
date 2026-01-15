@@ -9,7 +9,9 @@ class Player {
         this.name = name;
         this.num = num;
         this.gameBoard = new Gameboard;
-        this.map = map1;
+        this.map;
+        if (this.num == 1) this.map = map1;
+        if (this.num == 2) this.map = map2;
     }
 
 }

@@ -1,20 +1,27 @@
 let { Player, Computer } = require('./player');
-let { gameState } = require('./gameboard');
 const refreshBoard = require('./refreshBoard');
 const refreshDOM = require('./DOM');
 
-let player1 = new Player;
-let player2 = new Computer;
+let player1;
+let player2;
 
-let currentPlayer = player2;
-let otherPlayer = player1;
+let currentPlayer;
+let otherPlayer;
+
+let gameState = 'setup';
+let gameMode = 'multi';
 
 function play() {
 
   if (gameState == 'setup') {
 
-    player1 = new Player;
-    player2 = new Computer;
+    if (gameMode == 'single') {
+      player1 = new Player;
+      player2 = new Computer;
+    } else if (gameMode == 'multi') {
+      player1 = new Player('Player1',1);
+      player2 = new Player('Player2',2);
+    }
 
     player1.gameBoard.placeShip(0,0,1,'v');
     player1.gameBoard.placeShip(1,0,2,'v');
@@ -22,9 +29,15 @@ function play() {
     player1.gameBoard.placeShip(3,0,4,'v');
     player1.gameBoard.placeShip(4,0,5,'v');
 
+    player2.gameBoard.placeShip(0,0,1,'v');
+    player2.gameBoard.placeShip(1,0,2,'v');
+    player2.gameBoard.placeShip(2,0,3,'v');
+    player2.gameBoard.placeShip(3,0,4,'v');
+    player2.gameBoard.placeShip(4,0,5,'v');
+
     currentPlayer = player2;
     otherPlayer = player1;
-
+    
   }
 
   if (gameState == 'live') {
@@ -41,7 +54,7 @@ function play() {
     otherPlayer = currentPlayer;
     currentPlayer = newCurrentPlayer;
   
-    if (currentPlayer.name == 'Computer') {
+    if (gameMode == 'single' && currentPlayer.name == 'Computer') {
 
       setTimeout(function() {
 
@@ -59,7 +72,11 @@ function play() {
     // use drawCurrentBoard in opp board so that not clickable???
   }  
 
-  refreshBoard(player1, player2, play, gameState);
+  if (gameMode == 'single') {
+    refreshBoard(player1, player2, play, gameState);
+  } else if (gameMode == 'multi') {
+    refreshBoard(currentPlayer, otherPlayer, play, gameState);
+  }
   refreshDOM(gameState, currentPlayer);
 
 };
@@ -89,7 +106,11 @@ function addShipDOM() {
 
   if (player1.gameBoard.ships.length == 5) {
     addShipBtn.style.display = 'none';
-    player2.populateBoard();
+
+    if (gameMode == 'single') {
+      player2.populateBoard();
+    }
+
     gameState = 'live';
     
     return play();
