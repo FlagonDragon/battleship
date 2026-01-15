@@ -18,7 +18,7 @@ class Player {
 
 class Computer extends Player {
 
-    constructor(name = 'Computer', num = 1) {
+    constructor(name = 'Computer', num = 2) {
         super(name)
         this.num = num;
         this.gameBoard = new Gameboard;

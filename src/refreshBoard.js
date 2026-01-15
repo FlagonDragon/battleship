@@ -51,15 +51,29 @@ function drawOppBoard(player, map, myFunc, gameState) {
 
           player.gameBoard.receiveAttack([j],[i]);
 
-          if (player.gameBoard.board[i][j] != currValue) {
+          // console.log(player.name == `Player ${player.num}`);
+          console.log(player);
+          // console.log(player.name);
+          // console.log(`Player ${player.num}`);
 
-            // if (player.name == `Player ${player.num}`) {
-            //   gameState = ''
-            // }
+          // if (player.gameBoard.board[i][j] != currValue) {
 
-            myFunc();
+          //   if (player.name == `Player ${player.num}`) {
+              
+          //     console.log(player.name == `Player ${player.num}`);
+              
+              
+          //     myFunc('pass');
 
-          }
+          //   } else {
+
+          //     myFunc();
+
+          //   }
+
+          // }
+
+          myFunc();
 
         };
 

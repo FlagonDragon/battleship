@@ -1,5 +1,3 @@
-const { player1, player2 } = require('./player');
-
 const instruction = document.getElementById('instruction');
 const restartBtn = document.getElementById('restartBtn');
 const upperCoords1 = document.getElementById("upperCoords1");
@@ -10,8 +8,6 @@ const player1Name = document.getElementById("name1");
 const player2Name = document.getElementById("name2");
 
 instruction.textContent = 'Placeholder';
-player1Name.textContent = player1.name;
-player2Name.textContent = player2.name;
 
 let passBtn = document.createElement('button');
 
@@ -30,11 +26,14 @@ appendCoords(upperCoords2);
 appendCoords(leftCoords1);
 appendCoords(leftCoords2);
 
-function refreshDOM(gameState, currentPlayer, myFunc) {
+function refreshDOM(gameState, gameMode, currentPlayer, myFunc) {
 
-  if (currentPlayer.name = 'Player 1') {
-    player1Name.textContent = currentPlayer.name;
-    player2Name.textContent = 'Player 2';
+  if (gameMode == 'single') {
+    player1Name.textContent = 'Admiral';
+    player2Name.textContent = 'Computer';
+  } else if (gameMode == 'multi') {
+    player1Name.textContent = 'Player 1';
+    player2Name.textContent = 'Player2';
   }
 
   if (gameState == 'setup') {
@@ -65,9 +64,8 @@ function refreshDOM(gameState, currentPlayer, myFunc) {
 
       passBtn.onclick = () => {
 
-        gameState = 'live';
         passBtn.remove();
-        myFunc();
+        myFunc('live');
 
       };
 

@@ -18,7 +18,7 @@ function play(changeState) {
     console.log('state changed');
   }
 
-  console.log(gameState);
+  console.log('(start) '+gameState);
 
   if (gameState == 'setup') {
 
@@ -26,9 +26,13 @@ function play(changeState) {
       player1 = new Player;
       player2 = new Computer;
     } else if (gameMode == 'multi') {
-      player1 = new Player('Player 1',1);
-      player2 = new Player('Player 2',2);
+      player1 = new Player('Player 1', 1);
+      player2 = new Player('Player 2', 2);
     }
+
+    console.log(player1);
+    console.log(player2);
+    
 
     player1.gameBoard.placeShip(0,0,1,'v');
     player1.gameBoard.placeShip(1,0,2,'v');
@@ -85,18 +89,20 @@ function play(changeState) {
     //
 
   } else if (gameState == 'pass') {
-    gameState = 'live';
+    // gameState = 'live';
   }
 
   if (gameMode == 'single') {
     refreshBoard(player1, player2, play, gameState);
-  } else if (gameMode == 'multi') {
+  } else if (gameMode == 'multi' && gameState != 'pass') {
     refreshBoard(currentPlayer, otherPlayer, play, gameState);
   }
 
-  refreshDOM(gameState, currentPlayer, play);
+  refreshDOM(gameState, gameMode, currentPlayer, play);
 
   console.log('(end) '+gameState);
+   console.log(player1);
+    console.log(player2);
   
 };
 
