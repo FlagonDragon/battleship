@@ -29,9 +29,6 @@ function play() {
 
   if (gameState == 'live') {
 
-
-    // restartBtn.style.backgroundColor = "purple";
-
     if (otherPlayer.gameBoard.shipsRemaining() == 0) {
 
       gameState = 'over';
@@ -59,10 +56,10 @@ function play() {
   }
   
   if (gameState == 'over') {
-    restartBtn.style.backgroundColor = "black";
+    // use drawCurrentBoard in opp board so that not clickable???
   }  
 
-  refreshBoard(player1, player2, play);
+  refreshBoard(player1, player2, play, gameState);
   refreshDOM(gameState, currentPlayer);
 
 };
@@ -124,7 +121,7 @@ restartBtn.onclick = () => {
 
 addShipBtn.onclick = () => {
   addShipDOM();
-  refreshBoard(player1, player2, play);
+  refreshBoard(player1, player2, play, gameState);
 };
 
 module.exports = play;

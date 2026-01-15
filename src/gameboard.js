@@ -29,8 +29,6 @@ class Gameboard {
         let newShip = new Ship(this.ships.length, length);
 
         this.ships.push(newShip);
-
-        // console.log(x+''+y);
         
         if (orientation == 'h') {
 
@@ -83,8 +81,6 @@ class Gameboard {
         if (this.board[y][x] == '⛴') {
 
             this.board[y][x] = '✸';
-
-            console.log(this.board[y][x]);
 
             this.ships.forEach(ship => {
                 

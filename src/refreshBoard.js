@@ -1,7 +1,9 @@
+const { gameState } = require("./gameboard");
+
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
 
-function drawCurrentBoard(player, map, myFunc) {
+function drawCurrentBoard(player, map) {
 
   let sunkCoords = player.gameBoard.sunkCoords();
 
@@ -25,7 +27,7 @@ function drawCurrentBoard(player, map, myFunc) {
 
 };
 
-function drawOppBoard(player, map, myFunc) {
+function drawOppBoard(player, map, myFunc, gameState) {
 
   let sunkCoords = player.gameBoard.sunkCoords();
 
@@ -43,13 +45,17 @@ function drawOppBoard(player, map, myFunc) {
 
       div.onclick = () => {
 
-        let currValue = player.gameBoard.board[i][j];
+        if (gameState != 'over') {
 
-        player.gameBoard.receiveAttack([j],[i]);
+          let currValue = player.gameBoard.board[i][j];
 
-        if (player.gameBoard.board[i][j] != currValue) {
+          player.gameBoard.receiveAttack([j],[i]);
 
-          myFunc();
+          if (player.gameBoard.board[i][j] != currValue) {
+
+            myFunc();
+
+          }
 
         }
 
@@ -77,13 +83,13 @@ function removeBoard(map) {
 
 };
 
-function refreshBoard(player1, player2, myFunc) {
+function refreshBoard(player1, player2, myFunc, gameState) {
 
   removeBoard(map1);
   removeBoard(map2);
 
-  drawCurrentBoard(player1, player1.map, myFunc);
-  drawOppBoard(player2, player2.map, myFunc);
+  drawCurrentBoard(player1, player1.map);
+  drawOppBoard(player2, player2.map, myFunc, gameState);
 
 };
 

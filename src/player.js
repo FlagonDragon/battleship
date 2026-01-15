@@ -102,35 +102,23 @@ class Computer extends Player {
             }
             
         });
-
-        console.log(adjacentCoords);
         
         let availableSquares = 0;
 
         adjacentCoords.forEach(coords => {
 
             if (player.gameBoard.board[coords[1]][coords[0]] == '∼' || player.gameBoard.board[coords[1]][coords[0]] == '⛴') {
-                console.log('available square: '+coords+' ('+player.gameBoard.board[coords[1]][coords[0]]+')');
+                // console.log('available square: '+coords+' ('+player.gameBoard.board[coords[1]][coords[0]]+')');
                 availableSquares++;
             }
             
         });
 
-        console.log(availableSquares);
-        console.log(player.name);
-        console.log(player.gameBoard.board);
-
-        
-        
-
         if (availableSquares == 0) {
             return {x: Math.round(Math.random() * 9), y: Math.round(Math.random() * 9)};
         }
 
-        let index = adjacentCoords[Math.round(Math.random() * (adjacentCoords.length-1))];
-
-        console.log(index);
-        
+        let index = adjacentCoords[Math.round(Math.random() * (adjacentCoords.length-1))];        
 
         return {x: index[0], y: index[1]};
 
