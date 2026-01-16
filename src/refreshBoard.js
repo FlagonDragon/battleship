@@ -43,7 +43,7 @@ function drawOppBoard(player, map, myFunc, gameState) {
         div.textContent = player.gameBoard.board[i][j];
       }
 
-      if (gameState != 'over' && gameState != 'pass') {
+      if (gameState == 'live') {
 
         div.onclick = () => {
 
@@ -56,9 +56,9 @@ function drawOppBoard(player, map, myFunc, gameState) {
             if (player.name == `Player ${player.num}`) {
             //  means gamemode is multi
           
-              myFunc('pass');
-              removeBoard(map)
-              drawOppBoard(player, map, myFunc, gameState)
+              myFunc('pass1');
+              // removeBoard(map)
+              // drawOppBoard(player, map, myFunc, gameState)
 
             } else {
 
@@ -99,7 +99,7 @@ function refreshBoard(player1, player2, myFunc, gameState) {
   removeBoard(map1);
   removeBoard(map2);
 
-  if (gameState == 'pass') {
+  if (gameState == 'pass2') {
     drawOppBoard(player1, player1.map, myFunc, gameState);
     drawOppBoard(player2, player2.map, myFunc, gameState);
     return;

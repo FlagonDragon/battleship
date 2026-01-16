@@ -15,7 +15,6 @@ function play(changeState) {
 
   if (changeState) {
     gameState = changeState;
-    console.log('state changed');
   }
 
   if (gameState == 'setup') {
@@ -88,7 +87,7 @@ function play(changeState) {
 
   if (gameMode == 'single') {
     refreshBoard(player1, player2, play, gameState);
-  } else if (gameMode == 'multi' && gameState != 'pass') {
+  } else if (gameMode == 'multi') {
     refreshBoard(currentPlayer, otherPlayer, play, gameState);
   }
 

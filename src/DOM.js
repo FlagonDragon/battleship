@@ -26,6 +26,8 @@ appendCoords(upperCoords2);
 appendCoords(leftCoords1);
 appendCoords(leftCoords2);
 
+let windowListener = false;
+
 function refreshDOM(gameState, gameMode, currentPlayer, myFunc) {
 
   if (gameMode == 'single') {
@@ -52,26 +54,58 @@ function refreshDOM(gameState, gameMode, currentPlayer, myFunc) {
 
   }
 
-  if (gameState == 'pass') {
+  if (gameState == 'pass1') {
 
     instruction.textContent = '';
-    passBtn.textContent = 'Pass turn.'
+    passBtn.textContent = 'Pass turn'
     instruction.appendChild(passBtn);
 
     passBtn.onclick = () => {
 
       passBtn.textContent = 'Play';
 
-      // myFunc('pass');
+      myFunc('pass2');
 
       passBtn.onclick = () => {
 
+        passBtn.textContent = '';
         passBtn.remove();
         myFunc('live');
 
       };
 
     };
+
+    if (windowListener == false) {
+
+      window.addEventListener('keydown', () => {
+
+        if (passBtn.textContent == 'Pass turn') {
+
+          passBtn.textContent = 'Play';
+
+          myFunc('pass2');
+
+          passBtn.onclick = () => {
+
+            passBtn.remove();
+            myFunc('live');
+
+          };
+
+        } else if (passBtn.textContent == 'Play') {
+          
+          passBtn.textContent = '';
+          passBtn.remove();
+          myFunc('live');
+
+        }
+
+      });
+
+      windowListener = true;
+
+    }
 
   }
 
