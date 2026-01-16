@@ -18,8 +18,6 @@ function play(changeState) {
     console.log('state changed');
   }
 
-  console.log('(start) '+gameState);
-
   if (gameState == 'setup') {
 
     if (gameMode == 'single') {
@@ -29,10 +27,6 @@ function play(changeState) {
       player1 = new Player('Player 1', 1);
       player2 = new Player('Player 2', 2);
     }
-
-    console.log(player1);
-    console.log(player2);
-    
 
     player1.gameBoard.placeShip(0,0,1,'v');
     player1.gameBoard.placeShip(1,0,2,'v');
@@ -85,10 +79,10 @@ function play(changeState) {
     // }    
 
   } else if (gameState == 'over') {
-
     //
-
-  } else if (gameState == 'pass') {
+  } else if (gameState == 'pass1') {
+    // gameState = 'live';
+  }else if (gameState == 'pass2') {
     // gameState = 'live';
   }
 
@@ -100,10 +94,6 @@ function play(changeState) {
 
   refreshDOM(gameState, gameMode, currentPlayer, play);
 
-  console.log('(end) '+gameState);
-   console.log(player1);
-    console.log(player2);
-  
 };
 
 const restartBtn = document.getElementById('restartBtn');

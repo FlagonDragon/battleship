@@ -62,6 +62,8 @@ function refreshDOM(gameState, gameMode, currentPlayer, myFunc) {
 
       passBtn.textContent = 'Play';
 
+      // myFunc('pass');
+
       passBtn.onclick = () => {
 
         passBtn.remove();

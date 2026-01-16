@@ -51,29 +51,22 @@ function drawOppBoard(player, map, myFunc, gameState) {
 
           player.gameBoard.receiveAttack([j],[i]);
 
-          // console.log(player.name == `Player ${player.num}`);
-          console.log(player);
-          // console.log(player.name);
-          // console.log(`Player ${player.num}`);
+          if (player.gameBoard.board[i][j] != currValue) {
 
-          // if (player.gameBoard.board[i][j] != currValue) {
+            if (player.name == `Player ${player.num}`) {
+            //  means gamemode is multi
+          
+              myFunc('pass');
+              removeBoard(map)
+              drawOppBoard(player, map, myFunc, gameState)
 
-          //   if (player.name == `Player ${player.num}`) {
-              
-          //     console.log(player.name == `Player ${player.num}`);
-              
-              
-          //     myFunc('pass');
+            } else {
 
-          //   } else {
+              myFunc();
 
-          //     myFunc();
+            }
 
-          //   }
-
-          // }
-
-          myFunc();
+          }
 
         };
 
