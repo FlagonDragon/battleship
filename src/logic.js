@@ -34,10 +34,7 @@ function play(changeState) {
     player1.gameBoard.placeShip(4,0,5,'v');
 
     player2.gameBoard.placeShip(0,0,1,'v');
-    player2.gameBoard.placeShip(1,0,2,'v');
-    player2.gameBoard.placeShip(2,0,3,'v');
-    player2.gameBoard.placeShip(3,0,4,'v');
-    player2.gameBoard.placeShip(4,0,5,'v');
+
 
     currentPlayer = player2;
     otherPlayer = player1;
@@ -66,30 +63,31 @@ function play(changeState) {
         
       }, 100)
 
+    }  
+
+  } else if (gameState == 'pass1') {
+
+    if (otherPlayer.gameBoard.shipsRemaining() == 0) {
+
+      console.log('yeah we over');
+      
+
+      gameState = 'over';
+
+      return play('over');
+
     }
 
-    // if (gameMode == 'multi') {
-    //   console.log(gameMode);
-      
-    //   gameState = 'pass';
-
-    //   console.log(gameState);
-      
-    // }    
-
-  } else if (gameState == 'over') {
-    //
-  } else if (gameState == 'pass1') {
-    // gameState = 'live';
-  }else if (gameState == 'pass2') {
-    // gameState = 'live';
-  }
-
+  } 
+  
   if (gameMode == 'single') {
     refreshBoard(player1, player2, play, gameState);
   } else if (gameMode == 'multi') {
     refreshBoard(currentPlayer, otherPlayer, play, gameState);
   }
+
+  console.log('we herrre');
+  
 
   refreshDOM(gameState, gameMode, currentPlayer, play);
 
