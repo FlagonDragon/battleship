@@ -1,4 +1,5 @@
 const { gameState } = require("./gameboard");
+const play = require("./logic");
 
 let map1 = document.getElementById('map1');
 let map2 = document.getElementById('map2');
@@ -12,6 +13,8 @@ function drawCurrentBoard(player, map) {
     for (let j = 0; j <= 9; j++) {
         
       let div = document.createElement('div');
+
+      div.classList.add(`sq${i}${j}${player.num}`)
 
       div.textContent = player.gameBoard.board[i][j];
 
@@ -37,6 +40,8 @@ function drawOppBoard(player, map, myFunc, gameState) {
         
       let div = document.createElement('div');
 
+      div.classList.add(`sq${i}${j}${player.num}`)
+
       if (player.gameBoard.board[i][j] == '⛴') {
         div.textContent = '∼';
       } else {
@@ -47,18 +52,26 @@ function drawOppBoard(player, map, myFunc, gameState) {
 
         div.onclick = () => {
 
+
+
           let currValue = player.gameBoard.board[i][j];
 
           player.gameBoard.receiveAttack([j],[i]);
+          
 
           if (player.gameBoard.board[i][j] != currValue) {
+
+            let className = div.className
+
+            player.lastDiv = className;  
+            
+            console.log(player.lastDiv);
+            
 
             if (player.name == `Player ${player.num}`) {
             //  means gamemode is multi
           
               myFunc('pass1');
-              // removeBoard(map)
-              // drawOppBoard(player, map, myFunc, gameState)
 
             } else {
 
@@ -94,6 +107,20 @@ function removeBoard(map) {
 
 };
 
+function lastSquare(player1, player2) {
+
+ if(player1.lastDiv != '') {
+    let lastDiv = document.querySelector(`.${player1.lastDiv}`);
+    lastDiv.style.backgroundColor = 'greenyellow';    
+  }
+
+  if(player2.lastDiv != '') {
+    let lastDiv = document.querySelector(`.${player2.lastDiv}`);
+    lastDiv.style.backgroundColor = 'greenyellow';    
+  }
+
+}
+
 function refreshBoard(player1, player2, myFunc, gameState) {
 
   removeBoard(map1);
@@ -102,11 +129,14 @@ function refreshBoard(player1, player2, myFunc, gameState) {
   if (gameState == 'pass2') {
     drawOppBoard(player1, player1.map, myFunc, gameState);
     drawOppBoard(player2, player2.map, myFunc, gameState);
+    lastSquare(player1, player2);
     return;
   }
 
   drawCurrentBoard(player1, player1.map);
   drawOppBoard(player2, player2.map, myFunc, gameState);
+
+  lastSquare(player1, player2);
 
 };
 

@@ -12,6 +12,7 @@ class Player {
         this.map;
         if (this.num == 1) this.map = map1;
         if (this.num == 2) this.map = map2;
+        this.lastDiv = '';
     }
 
 }
@@ -24,6 +25,7 @@ class Computer extends Player {
         this.gameBoard = new Gameboard;
         this.map = map2;
         this.lastHit = '';
+        this.lastDiv = '';
     }
 
     makeMove(player) {

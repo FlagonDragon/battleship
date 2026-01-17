@@ -79,17 +79,24 @@ function play(changeState) {
     }
 
   } 
-  
+
   if (gameMode == 'single') {
     refreshBoard(player1, player2, play, gameState);
   } else if (gameMode == 'multi') {
     refreshBoard(currentPlayer, otherPlayer, play, gameState);
-  }
-
-  console.log('we herrre');
-  
+  }  
 
   refreshDOM(gameState, gameMode, currentPlayer, play);
+
+  // if(player1.lastDiv != '') {
+  //   let lastDiv = document.querySelector(`.${player1.lastDiv}`);
+  //   lastDiv.style.backgroundColor = 'greenyellow';    
+  // }
+
+  // if(player2.lastDiv != '') {
+  //   let lastDiv = document.querySelector(`.${player2.lastDiv}`);
+  //   lastDiv.style.backgroundColor = 'greenyellow';    
+  // }
 
 };
 
