@@ -88,16 +88,6 @@ function play(changeState) {
 
   refreshDOM(gameState, gameMode, currentPlayer, play);
 
-  // if(player1.lastDiv != '') {
-  //   let lastDiv = document.querySelector(`.${player1.lastDiv}`);
-  //   lastDiv.style.backgroundColor = 'greenyellow';    
-  // }
-
-  // if(player2.lastDiv != '') {
-  //   let lastDiv = document.querySelector(`.${player2.lastDiv}`);
-  //   lastDiv.style.backgroundColor = 'greenyellow';    
-  // }
-
 };
 
 const restartBtn = document.getElementById('restartBtn');
@@ -106,6 +96,34 @@ const info = document.getElementById("info1");
 let addShipBtn = document.createElement('button');
 addShipBtn.textContent = 'Add ship';
 info.appendChild(addShipBtn);
+
+let shipIcon = document.createElement('div');
+shipIcon.textContent = '⛴';
+shipIcon.style.cursor = 'grab';
+shipIcon.draggable = true;
+info.appendChild(shipIcon);
+
+let box = document.createElement('div');
+box.style.width = '35px';
+box.style.height = '35px';
+box.style.border ='1px solid black'
+info.appendChild(box);
+
+shipIcon.addEventListener('dragstart', function(e) {
+
+  let selected = e.target;
+
+  box.addEventListener('dragover', function(e) {
+    e.preventDefault();
+  });
+
+  box.addEventListener('drop', function(e) {
+    box.appendChild(selected)
+    selected = null;
+  });
+
+});
+
 
 function restart() {
 
