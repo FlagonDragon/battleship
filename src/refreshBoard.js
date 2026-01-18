@@ -14,7 +14,8 @@ function drawCurrentBoard(player, map) {
         
       let div = document.createElement('div');
 
-      div.classList.add(`sq${i}${j}${player.num}`)
+      div.classList.add(`sq${i}${j}${player.num}`);
+      div.classList.add(`sqr2`);
 
       div.textContent = player.gameBoard.board[i][j];
 
@@ -40,7 +41,8 @@ function drawOppBoard(player, map, myFunc, gameState) {
         
       let div = document.createElement('div');
 
-      div.classList.add(`sq${i}${j}${player.num}`)
+      div.classList.add(`sq${i}${j}${player.num}`);
+      div.classList.add(`sqr1`);
 
       if (player.gameBoard.board[i][j] == '⛴') {
         div.textContent = '∼';
@@ -52,21 +54,17 @@ function drawOppBoard(player, map, myFunc, gameState) {
 
         div.onclick = () => {
 
-
-
           let currValue = player.gameBoard.board[i][j];
 
           player.gameBoard.receiveAttack([j],[i]);
-          
 
           if (player.gameBoard.board[i][j] != currValue) {
 
-            let className = div.className
+            let className = div.classList[0];
 
             player.lastDiv = className;  
             
             console.log(player.lastDiv);
-            
 
             if (player.name == `Player ${player.num}`) {
             //  means gamemode is multi

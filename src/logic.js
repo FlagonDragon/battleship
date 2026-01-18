@@ -67,10 +67,7 @@ function play(changeState) {
 
   } else if (gameState == 'pass1') {
 
-    if (otherPlayer.gameBoard.shipsRemaining() == 0) {
-
-      console.log('yeah we over');
-      
+    if (otherPlayer.gameBoard.shipsRemaining() == 0) {      
 
       gameState = 'over';
 
@@ -88,6 +85,13 @@ function play(changeState) {
 
   refreshDOM(gameState, gameMode, currentPlayer, play);
 
+  console.log(getSquares());
+  
+};
+
+function getSquares() {
+  let squares = document.querySelectorAll('.sqr1')
+  return squares;
 };
 
 const restartBtn = document.getElementById('restartBtn');
@@ -113,17 +117,26 @@ shipIcon.addEventListener('dragstart', function(e) {
 
   let selected = e.target;
 
-  box.addEventListener('dragover', function(e) {
+  let squares = getSquares();
+
+  for (let square of squares) {
+
+    square.addEventListener('dragover', function(e) {
     e.preventDefault();
+    });
+
+    // getCoords = ()
+
+    square.addEventListener('drop', function(e) {
+    square.textContent = '⛴';
+    // player1.gameBoard.placeShip()
+    selected = null;
+
   });
 
-  box.addEventListener('drop', function(e) {
-    box.appendChild(selected)
-    selected = null;
-  });
+  }
 
 });
-
 
 function restart() {
 
