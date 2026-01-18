@@ -90,57 +90,62 @@ function play(changeState) {
 };
 
 function getSquares() {
-  let squares = document.querySelectorAll('.sqr1')
+  let squares = document.querySelectorAll('.sqr1');
   return squares;
 };
 
 const restartBtn = document.getElementById('restartBtn');
+const setupBtn = document.getElementById('setupBtn');
+
 
 const info = document.getElementById("info1");
 let addShipBtn = document.createElement('button');
 addShipBtn.textContent = 'Add ship';
 info.appendChild(addShipBtn);
 
-let shipIcon = document.createElement('div');
-shipIcon.textContent = '⛴';
-shipIcon.style.cursor = 'grab';
-shipIcon.draggable = true;
-info.appendChild(shipIcon);
+let shipIcons = document.querySelectorAll('.shipIcon');
 
-let box = document.createElement('button');
-box.textContent = 'Vert.'
-box.style.width = '35px';
-box.style.height = '35px';
-box.style.border ='1px solid black'
-info.appendChild(box);
+for (let shipIcon of shipIcons) {
 
-shipIcon.addEventListener('dragstart', function(e) {
+  shipIcon.addEventListener('dragstart', function(e) {
 
-  let selected = e.target;
+    let selected = e.target;
 
-  let squares = getSquares();
+    let squares = getSquares();
 
-  for (let square of squares) {
+    for (let square of squares) {
 
-    square.addEventListener('dragover', function(e) {
-      e.preventDefault();
-    });
+      square.addEventListener('dragover', function(e) {
+        e.preventDefault();
+      });
 
-    square.addEventListener('drop', function(e) {
+      square.addEventListener('drop', function(e) {
 
-      selected.remove();
-      
-      let getCoords = square.classList[0].split('');  
-      
-      player1.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]),5,'v');
+        selected.remove();
+        
+        let getCoords = square.classList[0].split('');  
+        
+        let length = selected.getAttribute('id')[8];
 
-      selected = null;
+        let orientation;
 
-    });
+        if (setupBtn.textContent == 'Vertical') {
+          orientation = 'v';
+        } else if (setupBtn.textContent == 'Horizontal') {
+          orientation = 'h';
+        }        
+        
+        player1.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
 
-  }
+        selected = null;
 
-});
+      });
+
+    }
+
+  });
+
+}
 
 function restart() {
 
@@ -194,6 +199,24 @@ function addShipDOM() {
 restartBtn.onclick = () => {
   restart();
 };
+
+console.log(setupBtn.textContent);
+
+
+setupBtn.onclick = () => {
+
+  if (setupBtn.textContent == 'Vertical') {
+
+    setupBtn.textContent = 'Horizontal';
+    
+  } else if (setupBtn.textContent == 'Horizontal') {
+
+    setupBtn.textContent = 'Vertical';
+
+  }
+
+};
+
 
 addShipBtn.onclick = () => {
   addShipDOM();
