@@ -84,8 +84,6 @@ function play(changeState) {
   }  
 
   refreshDOM(gameState, gameMode, currentPlayer, play);
-
-  // console.log(getSquares());
   
 };
 
@@ -102,8 +100,6 @@ const info = document.getElementById("info1");
 let addShipBtn = document.createElement('button');
 addShipBtn.textContent = 'Add ship';
 info.appendChild(addShipBtn);
-
-let sum = 0;
 
 let shipIcons = document.querySelectorAll('.shipIcon');
 
@@ -135,24 +131,39 @@ for (let shipIcon of shipIcons) {
           orientation = 'v';
         } else if (setupBtn.textContent == 'Horizontal') {
           orientation = 'h';
-        }        
+        }       
+
+        event.stopImmediatePropagation();
+
         
-        player1.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
-
-        selected.style.display = 'none';
-        selected = null;
-
-        event.stopImmediatePropagation()
+        try {
         
-        player1.gameBoard.ships[player1.gameBoard.ships.length - 1].coords.forEach(coord => {
+          player1.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
 
-          let splitCoords = coord.split(', ');
-          
-          let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]}1`)
+          selected.style.display = 'none';
+          selected = null;
 
-          sqr.textContent = '⛴'
+          event.stopImmediatePropagation();
           
-        });
+          player1.gameBoard.ships[player1.gameBoard.ships.length - 1].coords.forEach(coord => {
+
+            let splitCoords = coord.split(', ');
+            
+            let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]}1`)
+
+            sqr.textContent = '⛴'
+            
+          });
+          
+        } catch {
+
+          event.stopImmediatePropagation();
+
+          alert('Unavailable square!');
+
+          player1.gameBoard.ships.pop();
+          
+        }
       
       });
 
@@ -201,7 +212,7 @@ function addShipDOM() {
 
   } catch {
 
-    alert('Unavailable square!')
+    alert('Unavailable square!');
 
     player1.gameBoard.ships.pop();
 
@@ -236,6 +247,8 @@ setupBtn.onclick = () => {
 addShipBtn.onclick = () => {
   addShipDOM();
   refreshBoard(player1, player2, play, gameState);
+  console.log(player1.gameBoard.ships);
+  
 };
 
 module.exports = play;
