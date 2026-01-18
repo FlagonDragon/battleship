@@ -62,6 +62,10 @@ class Computer extends Player {
 
             this.lastHit = {x: x, y: y};
 
+            let className = document.querySelector(`.sq${y}${x}1`).classList[0];
+            
+            player.lastDiv = className; 
+
         } catch {  
 
             this.makeMove(player);

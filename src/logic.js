@@ -9,7 +9,7 @@ let currentPlayer;
 let otherPlayer;
 
 let gameState = 'setup';
-let gameMode = 'multi';
+let gameMode = 'single';
 
 function play(changeState) {
 
@@ -33,7 +33,7 @@ function play(changeState) {
     // player1.gameBoard.placeShip(3,0,4,'v');
     // player1.gameBoard.placeShip(4,0,5,'v');
 
-    player2.gameBoard.placeShip(0,0,1,'v');
+    // player2.gameBoard.placeShip(0,0,1,'v');
 
 
     currentPlayer = player2;
@@ -88,7 +88,15 @@ function play(changeState) {
 };
 
 function getSquares() {
-  let squares = document.getElementsByClassName('sqr1');
+
+  let squares; 
+
+  if (gameMode == 'single') {
+    squares = document.getElementsByClassName('sqr2');
+  } else {
+    squares = document.getElementsByClassName('sqr1');
+  }
+  
   return squares;
 };
 
@@ -154,6 +162,10 @@ for (let shipIcon of shipIcons) {
             sqr.textContent = '⛴'
             
           });
+
+          if (player1.gameBoard.ships.length == 5) {
+            setupBtn.textContent = 'Ready';
+          }
           
         } catch {
 
@@ -190,6 +202,7 @@ function addShipDOM() {
   }
 
   if (player1.gameBoard.ships.length == 5) {
+
     addShipBtn.style.display = 'none';
 
     if (gameMode == 'single') {
@@ -226,9 +239,6 @@ restartBtn.onclick = () => {
   restart();
 };
 
-console.log(setupBtn.textContent);
-
-
 setupBtn.onclick = () => {
 
   if (setupBtn.textContent == 'Vertical') {
@@ -238,6 +248,18 @@ setupBtn.onclick = () => {
   } else if (setupBtn.textContent == 'Horizontal') {
 
     setupBtn.textContent = 'Vertical';
+
+  } else if (setupBtn.textContent == 'Ready') {
+
+    setupBtn.style.display = 'none';
+
+    if (gameMode == 'single') {
+      player2.populateBoard();
+    }
+
+    gameState = 'live';
+    
+    return play();
 
   }
 
@@ -250,5 +272,8 @@ addShipBtn.onclick = () => {
   console.log(player1.gameBoard.ships);
   
 };
+
+addShipBtn.style.display = 'none';
+
 
 module.exports = play;
