@@ -60,6 +60,8 @@ class Gameboard {
             for (let i = 0; i < length; i++) {
 
                 if (this.board[y+i][x] == '⛴') {
+                    console.log(this.board);
+                    
                     throw Error ('Invalid placement');  
                 }
 

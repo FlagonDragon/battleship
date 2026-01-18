@@ -27,10 +27,10 @@ function play(changeState) {
       player2 = new Player('Player 2', 2);
     }
 
-    player1.gameBoard.placeShip(0,0,1,'v');
-    player1.gameBoard.placeShip(1,0,2,'v');
-    player1.gameBoard.placeShip(2,0,3,'v');
-    player1.gameBoard.placeShip(3,0,4,'v');
+    // player1.gameBoard.placeShip(0,0,1,'v');
+    // player1.gameBoard.placeShip(1,0,2,'v');
+    // player1.gameBoard.placeShip(2,0,3,'v');
+    // player1.gameBoard.placeShip(3,0,4,'v');
     // player1.gameBoard.placeShip(4,0,5,'v');
 
     player2.gameBoard.placeShip(0,0,1,'v');
@@ -90,7 +90,7 @@ function play(changeState) {
 };
 
 function getSquares() {
-  let squares = document.querySelectorAll('.sqr1');
+  let squares = document.getElementsByClassName('sqr1');
   return squares;
 };
 
@@ -103,14 +103,18 @@ let addShipBtn = document.createElement('button');
 addShipBtn.textContent = 'Add ship';
 info.appendChild(addShipBtn);
 
+let sum = 0;
+
 let shipIcons = document.querySelectorAll('.shipIcon');
+
+let selected;
 
 for (let shipIcon of shipIcons) {
 
   shipIcon.addEventListener('dragstart', function(e) {
 
-    let selected = e.target;
-
+    selected = e.target;
+    
     let squares = getSquares();
 
     for (let square of squares) {
@@ -120,12 +124,10 @@ for (let shipIcon of shipIcons) {
       });
 
       square.addEventListener('drop', function(e) {
-
-        selected.remove();
         
         let getCoords = square.classList[0].split('');  
         
-        let length = selected.getAttribute('id')[8];
+        let length = selected.getAttribute('id')[8];        
 
         let orientation;
 
@@ -137,8 +139,21 @@ for (let shipIcon of shipIcons) {
         
         player1.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
 
+        selected.style.display = 'none';
         selected = null;
 
+        event.stopImmediatePropagation()
+        
+        player1.gameBoard.ships[player1.gameBoard.ships.length - 1].coords.forEach(coord => {
+
+          let splitCoords = coord.split(', ');
+          
+          let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]}1`)
+
+          sqr.textContent = '⛴'
+          
+        });
+      
       });
 
     }
