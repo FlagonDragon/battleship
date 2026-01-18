@@ -187,7 +187,12 @@ for (let shipIcon of shipIcons) {
 
 function restart() {
 
-  addShipBtn.style.display = 'inline-block'
+  for (let shipIcon of shipIcons) {
+    shipIcon.style.display = 'block';
+  }
+
+  setupBtn.style.display = 'inline-block';
+  setupBtn.textContent = 'Vertical';
 
   gameState = 'setup';
   
