@@ -31,7 +31,7 @@ function play(changeState) {
     player1.gameBoard.placeShip(1,0,2,'v');
     player1.gameBoard.placeShip(2,0,3,'v');
     player1.gameBoard.placeShip(3,0,4,'v');
-    player1.gameBoard.placeShip(4,0,5,'v');
+    // player1.gameBoard.placeShip(4,0,5,'v');
 
     player2.gameBoard.placeShip(0,0,1,'v');
 
@@ -85,7 +85,7 @@ function play(changeState) {
 
   refreshDOM(gameState, gameMode, currentPlayer, play);
 
-  console.log(getSquares());
+  // console.log(getSquares());
   
 };
 
@@ -107,7 +107,8 @@ shipIcon.style.cursor = 'grab';
 shipIcon.draggable = true;
 info.appendChild(shipIcon);
 
-let box = document.createElement('div');
+let box = document.createElement('button');
+box.textContent = 'Vert.'
 box.style.width = '35px';
 box.style.height = '35px';
 box.style.border ='1px solid black'
@@ -122,17 +123,20 @@ shipIcon.addEventListener('dragstart', function(e) {
   for (let square of squares) {
 
     square.addEventListener('dragover', function(e) {
-    e.preventDefault();
+      e.preventDefault();
     });
 
-    // getCoords = ()
-
     square.addEventListener('drop', function(e) {
-    square.textContent = '⛴';
-    // player1.gameBoard.placeShip()
-    selected = null;
 
-  });
+      selected.remove();
+      
+      let getCoords = square.classList[0].split('');  
+      
+      player1.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]),5,'v');
+
+      selected = null;
+
+    });
 
   }
 
@@ -164,6 +168,7 @@ function addShipDOM() {
     gameState = 'live';
     
     return play();
+
   }
 
   let answer = prompt('State XY coordinates and orientation (h or v) of ship. Separate with commas.');

@@ -77,9 +77,13 @@
 
 .info  {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     text-align: center;
     margin: 32px;
+}
+
+.shipIcon {
+    cursor: grab;
 }
 
 .info div {
