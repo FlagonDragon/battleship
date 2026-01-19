@@ -10,6 +10,30 @@ const player2Name = document.getElementById("name2");
 instruction.textContent = 'Placeholder';
 
 let passBtn = document.createElement('button');
+passBtn.classList.add(`passBtn`);
+
+passBtn.style.background =  '#f5f5f5';
+passBtn.style.color =  'black';
+passBtn.style.fontWeight = 'regular';
+passBtn.style.height = '30px';
+passBtn.style.width = '75px';
+passBtn.style.font = '16px';
+passBtn.style.borderRadius = '20px';
+
+const setupBtns = document.getElementsByClassName('setupBtn');
+
+for (let setupBtn of setupBtns) {
+  setupBtn.style.background =  '#f5f5f5';
+  setupBtn.style.color =  'black';
+  setupBtn.style.fontWeight = 'regular';
+  setupBtn.style.height = '30px';
+  setupBtn.style.width = '75px';
+  setupBtn.style.font = '16px';
+  setupBtn.style.borderRadius = '20px';
+}
+
+
+
 
 function appendCoords(myDiv) {
 

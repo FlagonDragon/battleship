@@ -34,15 +34,18 @@ function play(changeState) {
     player1.gameBoard.placeShip(3,0,4,'v');
     // player1.gameBoard.placeShip(4,0,5,'v');
 
-    // player2.gameBoard.placeShip(0,0,1,'v');
+    player2.gameBoard.placeShip(0,0,1,'v');
+    player2.gameBoard.placeShip(1,0,2,'v');
+    player2.gameBoard.placeShip(2,0,3,'v');
+    player2.gameBoard.placeShip(3,0,4,'v');
 
 
     currentPlayer = player2;
     otherPlayer = player1;
     setupPlayer = player1;
 
-    dragDrop(setupPlayer);
-    
+    dragDrop();
+        
   } else if (gameState == 'live') {
 
     if (otherPlayer.gameBoard.shipsRemaining() == 0) {
@@ -91,12 +94,12 @@ function play(changeState) {
   
 };
 
-function getSquares(player) {
+function getSquares() {
+
+  console.log(setupPlayer);
+  
 
   let squares; 
-
-  console.log(gameMode);
-  console.log(player);
 
   if (gameMode == 'single') {
 
@@ -104,9 +107,14 @@ function getSquares(player) {
 
   } else if (gameMode == 'multi') {
 
-    if (player == player1) {
+    // console.log(gameMode);
+    // console.log(player);
+
+    if (setupPlayer == player1) {
+    // console.log(gameMode);
+    // console.log(player);
       squares = document.getElementsByClassName('sqr1');
-    } else if (player == player2) {
+    } else if (setupPlayer == player2) {
       squares = document.getElementsByClassName('sqr2');
     }
 
@@ -122,6 +130,7 @@ const restartBtn = document.getElementById('restartBtn');
 
 const setup1 = document.getElementById('setup1');
 const setup2 = document.getElementById('setup2');
+setup2.style.display = 'none';
 
 const setupBtn1 = document.getElementById('setupBtn1');const setupBtn2 = document.getElementById('setupBtn2');
 const setupBtns = document.getElementsByClassName('setupBtn');
@@ -137,13 +146,10 @@ let selected;
 
 let mySetupBtn;
 
-function dragDrop(player) {
+function dragDrop() {
 
-  if (player == player1) mySetupBtn = setupBtn1;
-  if (player == player2) mySetupBtn = setupBtn2;
-
-  console.log(player);
-  
+  if (setupPlayer == player1) mySetupBtn = setupBtn1;
+  if (setupPlayer == player2) mySetupBtn = setupBtn2;  
 
   for (let shipIcon of shipIcons) {
 
@@ -151,7 +157,7 @@ function dragDrop(player) {
 
       selected = e.target;
       
-      let squares = getSquares(player);
+      let squares = getSquares();
 
       for (let square of squares) {
 
@@ -176,27 +182,40 @@ function dragDrop(player) {
           event.stopImmediatePropagation();
 
           try {
+
+          console.log(setupPlayer);
+            
           
-            player.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
+            setupPlayer.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
 
             selected.style.display = 'none';
             selected = null;
 
             event.stopImmediatePropagation();
             
-            player.gameBoard.ships[player.gameBoard.ships.length - 1].coords.forEach(coord => {
+            setupPlayer.gameBoard.ships[setupPlayer.gameBoard.ships.length - 1].coords.forEach(coord => {
 
               let splitCoords = coord.split(', ');
 
-              let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]+player.num}`);
+              let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]+setupPlayer.num}`);
+
+              console.log(sqr);
+              
           
               sqr.textContent = '⛴'
               
             });
-
-            if (player.gameBoard.ships.length == 5) {
+            console.log(setupPlayer.gameBoard.ships.length );
+            console.log(setupPlayer.gameBoard.ships.length == 5);
+            
+            
+                
+            if (setupPlayer.gameBoard.ships.length == 5) {
               mySetupBtn.textContent = 'Ready';
             }
+
+            console.log(mySetupBtn.textContent);
+
             
           } catch {
 
@@ -204,7 +223,7 @@ function dragDrop(player) {
 
             alert('Unavailable square!');
 
-            player.gameBoard.ships.pop();
+            setupPlayer.gameBoard.ships.pop();
             
           }
         
@@ -216,7 +235,9 @@ function dragDrop(player) {
 
   }
 
-}
+};
+
+
 
 function restart() {
 
@@ -224,8 +245,10 @@ function restart() {
     shipIcon.style.display = 'block';
   }
 
-  setupBtn.style.display = 'inline-block';
-  setupBtn.textContent = 'Vertical';
+  setupBtn1.textContent = 'Vertical';
+  setupBtn2.textContent = 'Vertical';
+  setup1.style.display = 'block';
+  setup2.style.display = 'none';
 
   gameState = 'setup';
   
@@ -292,16 +315,21 @@ for (let setupBtn of setupBtns) {
     } else if (setupBtn.textContent == 'Ready' && player2.gameBoard.ships.length < 5) {
 
       setup1.style.display = 'none';
+      setup2.style.display = 'block';
+      setupBtn2.style.display = 'inline-block';
 
       setupBtn.textContent = 'Vertical';
 
-      currentPlayer = player2;
+      setupPlayer = player2;
 
-      dragDrop(currentPlayer);
+      refreshBoard(player1, player2, play, 'dragDrop');
+      
+      dragDrop();
 
     } else if (setupBtn.textContent == 'Ready' && player2.gameBoard.ships.length == 5) {
 
       setupBtn.style.display = 'none';
+      setup2.style.display = 'none';
 
       if (gameMode == 'single') {
         player2.populateBoard();
@@ -325,6 +353,5 @@ addShipBtn.onclick = () => {
 };
 
 addShipBtn.style.display = 'none';
-
 
 module.exports = play;

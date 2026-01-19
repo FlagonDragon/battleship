@@ -121,6 +121,12 @@ function lastSquare(player1, player2) {
 
 function refreshBoard(player1, player2, myFunc, gameState) {
 
+  if (gameState == 'dragDrop') {
+    removeBoard(map1);
+    drawOppBoard(player1, player1.map, myFunc, gameState);
+    return;
+  }
+
   removeBoard(map1);
   removeBoard(map2);
 
