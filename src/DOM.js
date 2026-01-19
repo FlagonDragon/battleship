@@ -35,7 +35,7 @@ function refreshDOM(gameState, gameMode, currentPlayer, myFunc) {
     player2Name.textContent = 'Computer';
   } else if (gameMode == 'multi') {
     player1Name.textContent = 'Player 1';
-    player2Name.textContent = 'Player2';
+    player2Name.textContent = 'Player 2';
   }
 
   if (gameState == 'setup') {

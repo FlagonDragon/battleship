@@ -7,9 +7,10 @@ let player2;
 
 let currentPlayer;
 let otherPlayer;
+let setupPlayer;
 
 let gameState = 'setup';
-let gameMode = 'single';
+let gameMode = 'multi';
 
 function play(changeState) {
 
@@ -27,10 +28,10 @@ function play(changeState) {
       player2 = new Player('Player 2', 2);
     }
 
-    // player1.gameBoard.placeShip(0,0,1,'v');
-    // player1.gameBoard.placeShip(1,0,2,'v');
-    // player1.gameBoard.placeShip(2,0,3,'v');
-    // player1.gameBoard.placeShip(3,0,4,'v');
+    player1.gameBoard.placeShip(0,0,1,'v');
+    player1.gameBoard.placeShip(1,0,2,'v');
+    player1.gameBoard.placeShip(2,0,3,'v');
+    player1.gameBoard.placeShip(3,0,4,'v');
     // player1.gameBoard.placeShip(4,0,5,'v');
 
     // player2.gameBoard.placeShip(0,0,1,'v');
@@ -38,6 +39,9 @@ function play(changeState) {
 
     currentPlayer = player2;
     otherPlayer = player1;
+    setupPlayer = player1;
+
+    dragDrop(setupPlayer);
     
   } else if (gameState == 'live') {
 
@@ -61,7 +65,7 @@ function play(changeState) {
 
         play();
         
-      }, 100)
+      }, 1000)
 
     }  
 
@@ -87,22 +91,40 @@ function play(changeState) {
   
 };
 
-function getSquares() {
+function getSquares(player) {
 
   let squares; 
 
+  console.log(gameMode);
+  console.log(player);
+
   if (gameMode == 'single') {
+
     squares = document.getElementsByClassName('sqr2');
-  } else {
-    squares = document.getElementsByClassName('sqr1');
+
+  } else if (gameMode == 'multi') {
+
+    if (player == player1) {
+      squares = document.getElementsByClassName('sqr1');
+    } else if (player == player2) {
+      squares = document.getElementsByClassName('sqr2');
+    }
+
   }
   
+  console.log(squares);
+  
   return squares;
+
 };
 
 const restartBtn = document.getElementById('restartBtn');
-const setupBtn = document.getElementById('setupBtn');
 
+const setup1 = document.getElementById('setup1');
+const setup2 = document.getElementById('setup2');
+
+const setupBtn1 = document.getElementById('setupBtn1');const setupBtn2 = document.getElementById('setupBtn2');
+const setupBtns = document.getElementsByClassName('setupBtn');
 
 const info = document.getElementById("info1");
 let addShipBtn = document.createElement('button');
@@ -113,75 +135,86 @@ let shipIcons = document.querySelectorAll('.shipIcon');
 
 let selected;
 
-for (let shipIcon of shipIcons) {
+let mySetupBtn;
 
-  shipIcon.addEventListener('dragstart', function(e) {
+function dragDrop(player) {
 
-    selected = e.target;
-    
-    let squares = getSquares();
+  if (player == player1) mySetupBtn = setupBtn1;
+  if (player == player2) mySetupBtn = setupBtn2;
 
-    for (let square of squares) {
+  console.log(player);
+  
 
-      square.addEventListener('dragover', function(e) {
-        e.preventDefault();
-      });
+  for (let shipIcon of shipIcons) {
 
-      square.addEventListener('drop', function(e) {
-        
-        let getCoords = square.classList[0].split('');  
-        
-        let length = selected.getAttribute('id')[8];        
+    shipIcon.addEventListener('dragstart', function(e) {
 
-        let orientation;
-
-        if (setupBtn.textContent == 'Vertical') {
-          orientation = 'v';
-        } else if (setupBtn.textContent == 'Horizontal') {
-          orientation = 'h';
-        }       
-
-        event.stopImmediatePropagation();
-
-        
-        try {
-        
-          player1.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
-
-          selected.style.display = 'none';
-          selected = null;
-
-          event.stopImmediatePropagation();
-          
-          player1.gameBoard.ships[player1.gameBoard.ships.length - 1].coords.forEach(coord => {
-
-            let splitCoords = coord.split(', ');
-            
-            let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]}1`)
-
-            sqr.textContent = '⛴'
-            
-          });
-
-          if (player1.gameBoard.ships.length == 5) {
-            setupBtn.textContent = 'Ready';
-          }
-          
-        } catch {
-
-          event.stopImmediatePropagation();
-
-          alert('Unavailable square!');
-
-          player1.gameBoard.ships.pop();
-          
-        }
+      selected = e.target;
       
-      });
+      let squares = getSquares(player);
 
-    }
+      for (let square of squares) {
 
-  });
+        square.addEventListener('dragover', function(e) {
+          e.preventDefault();
+        });
+
+        square.addEventListener('drop', function(e) {
+          
+          let getCoords = square.classList[0].split('');  
+          
+          let length = selected.getAttribute('id')[8];        
+
+          let orientation;
+
+          if (mySetupBtn.textContent == 'Vertical') {
+            orientation = 'v';
+          } else if (mySetupBtn.textContent == 'Horizontal') {
+            orientation = 'h';
+          }       
+
+          event.stopImmediatePropagation();
+
+          try {
+          
+            player.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
+
+            selected.style.display = 'none';
+            selected = null;
+
+            event.stopImmediatePropagation();
+            
+            player.gameBoard.ships[player.gameBoard.ships.length - 1].coords.forEach(coord => {
+
+              let splitCoords = coord.split(', ');
+
+              let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]+player.num}`);
+          
+              sqr.textContent = '⛴'
+              
+            });
+
+            if (player.gameBoard.ships.length == 5) {
+              mySetupBtn.textContent = 'Ready';
+            }
+            
+          } catch {
+
+            event.stopImmediatePropagation();
+
+            alert('Unavailable square!');
+
+            player.gameBoard.ships.pop();
+            
+          }
+        
+        });
+
+      }
+
+    });
+
+  }
 
 }
 
@@ -244,32 +277,45 @@ restartBtn.onclick = () => {
   restart();
 };
 
-setupBtn.onclick = () => {
+for (let setupBtn of setupBtns) {
 
-  if (setupBtn.textContent == 'Vertical') {
+  setupBtn.onclick = () => {
 
-    setupBtn.textContent = 'Horizontal';
-    
-  } else if (setupBtn.textContent == 'Horizontal') {
+    if (setupBtn.textContent == 'Vertical') {
 
-    setupBtn.textContent = 'Vertical';
+      setupBtn.textContent = 'Horizontal';
+      
+    } else if (setupBtn.textContent == 'Horizontal') {
 
-  } else if (setupBtn.textContent == 'Ready') {
+      setupBtn.textContent = 'Vertical';
 
-    setupBtn.style.display = 'none';
+    } else if (setupBtn.textContent == 'Ready' && player2.gameBoard.ships.length < 5) {
 
-    if (gameMode == 'single') {
-      player2.populateBoard();
+      setup1.style.display = 'none';
+
+      setupBtn.textContent = 'Vertical';
+
+      currentPlayer = player2;
+
+      dragDrop(currentPlayer);
+
+    } else if (setupBtn.textContent == 'Ready' && player2.gameBoard.ships.length == 5) {
+
+      setupBtn.style.display = 'none';
+
+      if (gameMode == 'single') {
+        player2.populateBoard();
+      }
+
+      gameState = 'live';
+      
+      return play();
+
     }
 
-    gameState = 'live';
-    
-    return play();
-
-  }
+  };
 
 };
-
 
 addShipBtn.onclick = () => {
   addShipDOM();
