@@ -64,8 +64,6 @@ function drawOppBoard(player, map, myFunc, gameState) {
 
             player.lastDiv = className;  
             
-            console.log(player.lastDiv);
-
             if (player.name == `Player ${player.num}`) {
             //  means gamemode is multi
           

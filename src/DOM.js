@@ -1,5 +1,6 @@
 const instruction = document.getElementById('instruction');
 const restartBtn = document.getElementById('restartBtn');
+const info = document.getElementsByClassName("info");
 const upperCoords1 = document.getElementById("upperCoords1");
 const upperCoords2 = document.getElementById("upperCoords2");
 const leftCoords1 = document.getElementById("leftCoords1");
@@ -69,12 +70,20 @@ function refreshDOM(gameState, gameMode, currentPlayer, myFunc) {
     restartBtn.style.background =  '#f5f5f5';
     restartBtn.style.color =  'black';
     restartBtn.style.fontWeight = 'regular';
+    
+    for (box of info) {
+      box.style.minHeight = '180px';
+    }
 
   }
 
   if (gameState == 'live') {    
 
     instruction.textContent = `Your move, ${currentPlayer.name}.`;
+
+    for (box of info) {
+      box.style.minHeight = '50px';
+    }
 
   }
 

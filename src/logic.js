@@ -10,7 +10,7 @@ let otherPlayer;
 let setupPlayer;
 
 let gameState = 'setup';
-let gameMode = 'multi';
+let gameMode = 'single';
 
 function play(changeState) {
 
@@ -28,16 +28,16 @@ function play(changeState) {
       player2 = new Player('Player 2', 2);
     }
 
-    player1.gameBoard.placeShip(0,0,1,'v');
-    player1.gameBoard.placeShip(1,0,2,'v');
-    player1.gameBoard.placeShip(2,0,3,'v');
-    player1.gameBoard.placeShip(3,0,4,'v');
+    // player1.gameBoard.placeShip(0,0,1,'v');
+    // player1.gameBoard.placeShip(1,0,2,'v');
+    // player1.gameBoard.placeShip(2,0,3,'v');
+    // player1.gameBoard.placeShip(3,0,4,'v');
     // player1.gameBoard.placeShip(4,0,5,'v');
 
-    player2.gameBoard.placeShip(0,0,1,'v');
-    player2.gameBoard.placeShip(1,0,2,'v');
-    player2.gameBoard.placeShip(2,0,3,'v');
-    player2.gameBoard.placeShip(3,0,4,'v');
+    // player2.gameBoard.placeShip(0,0,1,'v');
+    // player2.gameBoard.placeShip(1,0,2,'v');
+    // player2.gameBoard.placeShip(2,0,3,'v');
+    // player2.gameBoard.placeShip(3,0,4,'v');
 
 
     currentPlayer = player2;
@@ -96,9 +96,6 @@ function play(changeState) {
 
 function getSquares() {
 
-  console.log(setupPlayer);
-  
-
   let squares; 
 
   if (gameMode == 'single') {
@@ -107,26 +104,21 @@ function getSquares() {
 
   } else if (gameMode == 'multi') {
 
-    // console.log(gameMode);
-    // console.log(player);
-
     if (setupPlayer == player1) {
-    // console.log(gameMode);
-    // console.log(player);
       squares = document.getElementsByClassName('sqr1');
     } else if (setupPlayer == player2) {
       squares = document.getElementsByClassName('sqr2');
     }
 
   }
-  
-  console.log(squares);
-  
+    
   return squares;
 
 };
 
 const restartBtn = document.getElementById('restartBtn');
+const changeBtn = document.getElementById('changeMode');
+
 
 const setup1 = document.getElementById('setup1');
 const setup2 = document.getElementById('setup2');
@@ -135,10 +127,9 @@ setup2.style.display = 'none';
 const setupBtn1 = document.getElementById('setupBtn1');const setupBtn2 = document.getElementById('setupBtn2');
 const setupBtns = document.getElementsByClassName('setupBtn');
 
-const info = document.getElementById("info1");
-let addShipBtn = document.createElement('button');
-addShipBtn.textContent = 'Add ship';
-info.appendChild(addShipBtn);
+// let addShipBtn = document.createElement('button');
+// addShipBtn.textContent = 'Add ship';
+// info.appendChild(addShipBtn);
 
 let shipIcons = document.querySelectorAll('.shipIcon');
 
@@ -181,10 +172,7 @@ function dragDrop() {
 
           event.stopImmediatePropagation();
 
-          try {
-
-          console.log(setupPlayer);
-            
+          try {            
           
             setupPlayer.gameBoard.placeShip(Number(getCoords[3]),Number(getCoords[2]), Number(length), orientation);
 
@@ -197,25 +185,15 @@ function dragDrop() {
 
               let splitCoords = coord.split(', ');
 
-              let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]+setupPlayer.num}`);
-
-              console.log(sqr);
-              
+              let sqr = document.querySelector(`.sq${splitCoords[1]+splitCoords[0]+setupPlayer.num}`);              
           
               sqr.textContent = '⛴'
               
             });
-            console.log(setupPlayer.gameBoard.ships.length );
-            console.log(setupPlayer.gameBoard.ships.length == 5);
-            
-            
-                
+       
             if (setupPlayer.gameBoard.ships.length == 5) {
               mySetupBtn.textContent = 'Ready';
             }
-
-            console.log(mySetupBtn.textContent);
-
             
           } catch {
 
@@ -300,6 +278,20 @@ restartBtn.onclick = () => {
   restart();
 };
 
+changeBtn.onclick = () => {
+
+  if (gameMode == 'single') {
+    changeBtn.textContent = 'Multi Player';
+    gameMode = 'multi';
+  } else  if (gameMode == 'multi') {
+    changeBtn.textContent = 'Single Player';
+    gameMode = 'single';
+  }
+
+  restart();
+
+};
+
 for (let setupBtn of setupBtns) {
 
   setupBtn.onclick = () => {
@@ -315,6 +307,13 @@ for (let setupBtn of setupBtns) {
     } else if (setupBtn.textContent == 'Ready' && player2.gameBoard.ships.length < 5) {
 
       setup1.style.display = 'none';
+
+      if (gameMode == 'single') {
+        player2.populateBoard();
+        gameState = 'live';
+        return play();
+      }
+
       setup2.style.display = 'block';
       setupBtn2.style.display = 'inline-block';
 
@@ -345,13 +344,9 @@ for (let setupBtn of setupBtns) {
 
 };
 
-addShipBtn.onclick = () => {
-  addShipDOM();
-  refreshBoard(player1, player2, play, gameState);
-  console.log(player1.gameBoard.ships);
-  
-};
-
-addShipBtn.style.display = 'none';
+// addShipBtn.onclick = () => {
+//   addShipDOM();
+//   refreshBoard(player1, player2, play, gameState);  
+// };
 
 module.exports = play;
